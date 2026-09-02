@@ -1,0 +1,11 @@
+project_id,project_name,ministry,sector,implementing_agency,state,approved_cost_cr,revised_cost_cr,cumulative_expenditure_cr,approval_date,scheduled_start,scheduled_completion,revised_completion,physical_progress_pct,status
+PRJ-705728,Dedicated Freight Corridor,Ministry of Railways,Railways,DFCCIL,Uttar Pradesh,81459.0,95200.0,78400.0,,,2026-12-01,2026-12-01,84.5,Delayed
+PRJ-704812,Mumbai-Ahmedabad High Speed Rail,Ministry of Railways,Railways,NHSRCL,Gujarat,108000.0,125000.0,64200.0,,,2027-08-01,2027-08-01,52.0,Delayed
+PRJ-703991,Zojila Tunnel Project,Ministry of Road Transport,Roadways,NHIDCL,Jammu and Kashmir,6800.0,7200.0,4100.0,,,2026-11-01,2026-11-01,61.0,Delayed
+PRJ-702110,Kakrapar Atomic Power 3&4,Department of Atomic Energy,Atomic Energy,NPCIL,Gujarat,11450.0,16500.0,15800.0,,,2026-06-01,2026-06-01,98.0,Completed
+PRJ-701884,Bengaluru Metro Phase-2,Ministry of Housing & Urban,Urban Transit,BMRCL,Karnataka,26405.0,30500.0,22100.0,,,2027-03-01,2027-03-01,74.0,Delayed
+PRJ-706221,Gorakhpur Fertilizer Plant,Ministry of Chemicals,Fertilizers,HURL,Uttar Pradesh,7065.0,7065.0,6890.0,,,2026-09-01,2026-09-01,96.0,On Track
+PRJ-707449,Barauni Refinery Expansion,Ministry of Petroleum,Petroleum,IOCL,Bihar,14800.0,15900.0,11200.0,,,2027-04-01,2027-04-01,71.0,On Track
+PRJ-708112,Polavaram Irrigation Project,Ministry of Jal Shakti,Water Resources,PPA,Andhra Pradesh,55548.0,55548.0,38900.0,,,2026-12-01,2026-12-01,68.0,Delayed
+PRJ-709334,Delhi-Dehradun Expressway,Ministry of Road Transport,Roadways,NHAI,Uttarakhand,12000.0,12400.0,8900.0,,,2027-02-01,2027-02-01,78.0,On Track
+PRJ-704556,Talcher Fertilizer Plant,Ministry of Chemicals,Fertilizers,TFL,Odisha,13277.0,14100.0,9800.0,,,2026-10-01,2026-10-01,69.0,Delayed
