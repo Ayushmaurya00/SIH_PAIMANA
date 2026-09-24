@@ -1,0 +1,189 @@
+@import './tables.css';
+@import './print.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================================================
+   PAIMANA AI — MoSPI / IPMD Government Decision Support Design System
+   ========================================================================== */
+
+:root {
+  /* Strict 3-Tier Palette Tokens */
+  --primary-sovereign: #0F2B5B;
+  --primary: #1E3A8A;
+  --surface-base: #F5F7FA;
+  --surface-elevated: #FFFFFF;
+  --surface-subtle: #F8FAFC;
+  --border-rest: #E2E8F0;
+  --border-focus: #CBD5E1;
+  --text-primary: #0F172A;
+  --text-secondary: #334155;
+  --text-tertiary: #334155;
+
+  /* Semantic Accent Tokens (Text & Dot Only) */
+  --status-critical: #DC2626;
+  --status-warning: #B45309;
+  --status-healthy: #059669;
+}
+
+/* Base Document Styles */
+html, body {
+  background-color: var(--surface-base);
+  color: var(--text-primary);
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Typography Hierarchy */
+h1 {
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 28px;
+  color: var(--text-primary);
+  letter-spacing: -0.015em;
+}
+
+h2 {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  color: var(--text-primary);
+}
+
+h3 {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: var(--text-primary);
+}
+
+p {
+  color: var(--text-secondary);
+}
+
+/* Standardized Executive Cards (White, Subtle Border, No Default Shadow) */
+.card, .surface-card {
+  background-color: var(--surface-elevated);
+  border: 1px solid var(--border-rest);
+  border-radius: 12px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card:hover, .surface-card:hover {
+  border-color: var(--border-focus);
+}
+
+/* Standardized Form Inputs & Selects */
+.input-gov {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 12px;
+  color: var(--text-primary);
+  background-color: var(--surface-elevated);
+  border: 1px solid var(--border-rest);
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.input-gov:focus {
+  border-color: var(--primary);
+}
+
+.select-gov {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 12px;
+  color: var(--text-primary);
+  background-color: var(--surface-elevated);
+  border: 1px solid var(--border-rest);
+  border-radius: 8px;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+.select-gov:focus {
+  border-color: var(--primary);
+}
+
+/* Standardized Button Tokens */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #FFFFFF;
+  background-color: var(--primary-sovereign);
+  border: 1px solid var(--primary-sovereign);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+  background-color: var(--surface-elevated);
+  border: 1px solid var(--border-rest);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.btn-secondary:hover {
+  background-color: var(--surface-subtle);
+  border-color: var(--border-focus);
+  color: var(--text-primary);
+}
+
+/* Animation utilities (GPU Composited) */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(3px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: opacity, transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Shimmer Loading Skeleton (GPU Composited) */
+.shimmer {
+  background-color: #E2E8F0;
+  animation: shimmerPulse 1.8s ease-in-out infinite;
+  will-change: opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+@keyframes shimmerPulse {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+
+.animate-pulse {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}

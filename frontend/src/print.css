@@ -1,0 +1,40 @@
+/* ==========================================================================
+   PAIMANA AI — Strict Executive Print Stylesheet
+   ========================================================================== */
+
+@media print {
+  body {
+    background-color: #FFFFFF !important;
+    color: #000000 !important;
+    font-size: 11pt !important;
+  }
+
+  header, aside, .print\:hidden, button, form, nav {
+    display: none !important;
+  }
+
+  .card, .surface-card {
+    border: 1px solid #000000 !important;
+    box-shadow: none !important;
+    break-inside: avoid;
+    margin-bottom: 16px !important;
+    padding: 12px !important;
+    background-color: #FFFFFF !important;
+  }
+
+  h1, h2, h3 {
+    color: #000000 !important;
+  }
+
+  .table-wrap, .table-gov {
+    border: 1px solid #000000 !important;
+    width: 100% !important;
+  }
+
+  .table-gov th, .table-gov td {
+    border: 1px solid #999999 !important;
+    padding: 6px 8px !important;
+    color: #000000 !important;
+    background-color: #FFFFFF !important;
+  }
+}

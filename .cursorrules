@@ -1,0 +1,89 @@
+# PAIMANA AI — Project Rules & Guidelines (.cursorrules)
+# AI-Powered Predictive Analytics & Early Warning System for Infrastructure Project Monitoring (MoSPI / IPMD)
+
+You are an expert AI assistant and full-stack Python/ML engineer developing **PAIMANA AI**, an early-warning decision-support system for monitoring Central Sector Infrastructure Projects (≥₹150 Cr) for MoSPI/IPMD.
+
+---
+
+## 1. Core Principles & Strict Constraints
+
+- **Strict Open-Source Mandate**: Use **ONLY free, open-source libraries and local models**. Absolutely NO proprietary or paid APIs (e.g., no OpenAI, Anthropic, or external paid services). For LLM/RAG, use local open-weight models via **Ollama** (`llama3.2`, `phi3`) or open-source embeddings (`sentence-transformers/all-MiniLM-L6-v2`).
+- **Currency & Formatting**: Always format project costs and financial metrics in **Indian Crores (`₹ Cr`)** or Lakhs, with standard Indian numbering where applicable. Durations must be in **months** or **days**.
+- **Explainability First**: Never output a risk score or prediction as a black box. Every prediction must be accompanied by its top driving factors (using SHAP values and rule-based drivers).
+- **Government Credibility**: The UI must look like a credible, professional government decision-support dashboard (restrained, data-dense, accessible) — not a consumer or toy app.
+
+---
+
+## 2. Tech Stack
+
+- **Language / Runtime**: Python 3.11+
+- **Frontend / Dashboard**: Streamlit, Plotly (interactive charts), Altair
+- **Data Wrangling & Storage**: pandas, numpy, SQLite (with SQLAlchemy ORM), PyArrow
+- **Classical Statistics & Baselines**: scikit-learn (Logistic/Linear Regression), statsmodels (ARIMA/time-series)
+- **Machine Learning & Explainability**: XGBoost, LightGBM, SHAP
+- **Vector Store & RAG**: ChromaDB (local file-based), `sentence-transformers`, Ollama
+- **Backend / API (when applicable)**: FastAPI, Pydantic, Uvicorn
+
+---
+
+## 3. Visual & UI/UX Guidelines
+
+Adhere strictly to the design system defined in `03_UIUX_Design_Brief.md`:
+
+### Color Palette
+- **Primary / Brand**: Deep Government Blue (`#1E3A8A`)
+- **Background**: Slate Off-White (`#F8FAFC`) / Card White (`#FFFFFF`) / Dark Mode (`#0F172A`)
+- **Neutral Text / Borders**: Slate (`#334155`), Border (`#E2E8F0`)
+- **Low Risk / On Track**: Emerald Green (`#16A34A`) — Score: `0–39`
+- **Medium Risk / Watchlist**: Amber Gold (`#F59E0B`) — Score: `40–69`
+- **High Risk / Critical Alert**: Crimson Red (`#DC2626`) — Score: `70–100`
+
+### Accessibility & UX Rules
+- **Never rely on color alone**: Pair color indicators with explicit text labels (e.g., `🔴 High Risk (84/100)`).
+- **Progressive Disclosure**: Keep the Portfolio Overview high-level (KPIs, macro trends). Place granular CUF fields and milestone breakdowns inside the Project Drill-Down view.
+- **Consistent Visual Semantics**: Ensure status and risk colors are unified across KPI cards, Plotly charts, data tables, and alert badges.
+
+---
+
+## 4. Architecture & Modularity
+
+Maintain strict separation of concerns across the codebase:
+
+```
+paimana-ai/
+├── data/
+│   ├── raw/                  # Synthetic or exported CUF data files
+│   └── processed/            # Feature sets and SQLite database (paimana.db)
+├── src/
+│   ├── data_gen/             # Synthetic CUF dataset generator with realistic signals
+│   ├── etl/                  # Data cleaning, validation, and feature engineering
+│   ├── models/               # Baseline statistical models, XGBoost/LightGBM, and SHAP explainers
+│   ├── risk_engine/          # Composite risk scoring (0-100) and alert generation rules
+│   ├── rag/                  # Project summaries, ChromaDB indexing, and Ollama RAG client
+│   └── api/                  # FastAPI routers, schemas, and endpoints (optional/dual-mode)
+├── app/                      # Streamlit multipage application (Home, Explore, Details, Alerts, Compare)
+├── notebooks/                # Exploratory data analysis & evaluation notebooks
+└── tests/                    # Unit and integration tests
+```
+
+### Module Boundaries
+- **`data_gen`**: Generates synthetic CUF data with realistic correlations (e.g., sector complexities, agency historical delays, seasonal monsoon impacts).
+- **`etl`**: Prepares two distinct feature sets:
+  1. `cuf_only`: Strictly the standard Common Upload Form fields.
+  2. `cuf_plus_extra`: CUF fields enriched with engineered ratios, milestone slippage counts, and agency historical track records.
+- **`models`**: Handles model training, evaluation metrics (Accuracy, F1, AUC, RMSE), and artifact persistence.
+- **`risk_engine`**: Implements the hybrid composite risk scoring formula:
+  $$\text{Risk Score} = 0.35 \times P(\text{Cost Overrun}) + 0.35 \times P(\text{Time Overrun}) + 0.15 \times \text{Milestone Slippage} + 0.15 \times \text{Expenditure Mismatch}$$
+- **`app`**: Consumes clean data and service layers without directly embedding model training logic.
+
+---
+
+## 5. Coding Standards & Best Practices
+
+1. **Type Annotations**: Use Python type hints (`typing`, `pydantic`) across all functions and data classes.
+2. **Reproducibility**: Set explicit random seeds (`random_state=42`) across all data generators, splitters, and ML models.
+3. **Data Integrity & Fallbacks**:
+   - Handle missing CUF fields gracefully; assign a confidence indicator rather than crashing.
+   - If a local LLM is unreachable or Ollama is not running, fall back cleanly to rule-based templated explanations.
+4. **Performance**: Ensure data transformations and dashboard queries execute within `< 2s` for datasets up to 5,000 projects.
+5. **No Hardcoded Secrets / Absolute Local Paths**: Use relative paths or environment variables (`.env`).

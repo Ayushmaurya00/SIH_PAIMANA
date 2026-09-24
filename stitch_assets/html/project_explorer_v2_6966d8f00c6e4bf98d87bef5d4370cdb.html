@@ -1,0 +1,410 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "on-secondary-fixed-variant": "#3a485c",
+                "primary": "#00236f",
+                "tertiary-container": "#6e2c00",
+                "border-subtle": "#E2E8F0",
+                "bg-dark": "#0F172A",
+                "surface-container-low": "#f2f4f6",
+                "on-primary-fixed-variant": "#264191",
+                "on-error": "#ffffff",
+                "tertiary-fixed-dim": "#ffb691",
+                "surface-container-highest": "#e0e3e5",
+                "tertiary": "#4b1c00",
+                "on-primary": "#ffffff",
+                "surface-dim": "#d8dadc",
+                "on-tertiary-fixed-variant": "#773205",
+                "risk-high": "#DC2626",
+                "error-container": "#ffdad6",
+                "surface": "#f7f9fb",
+                "secondary-container": "#d5e3fd",
+                "surface-container-lowest": "#ffffff",
+                "tertiary-fixed": "#ffdbcb",
+                "primary-fixed-dim": "#b6c4ff",
+                "on-surface": "#191c1e",
+                "risk-low": "#16A34A",
+                "outline-variant": "#c5c5d3",
+                "surface-container": "#eceef0",
+                "risk-medium": "#F59E0B",
+                "on-primary-container": "#90a8ff",
+                "on-secondary": "#ffffff",
+                "secondary-fixed": "#d5e3fd",
+                "background": "#f7f9fb",
+                "surface-container-high": "#e6e8ea",
+                "on-tertiary-fixed": "#341100",
+                "surface-tint": "#4059aa",
+                "inverse-primary": "#b6c4ff",
+                "on-surface-variant": "#444651",
+                "error": "#ba1a1a",
+                "inverse-surface": "#2d3133",
+                "inverse-on-surface": "#eff1f3",
+                "on-tertiary-container": "#f39461",
+                "primary-fixed": "#dce1ff",
+                "surface-bright": "#f7f9fb",
+                "primary-container": "#1e3a8a",
+                "on-secondary-fixed": "#0d1c2f",
+                "on-secondary-container": "#57657b",
+                "secondary": "#515f74",
+                "on-background": "#191c1e",
+                "on-error-container": "#93000a",
+                "outline": "#757682",
+                "secondary-fixed-dim": "#b9c7e0",
+                "surface-variant": "#e0e3e5",
+                "surface-card": "#FFFFFF",
+                "on-tertiary": "#ffffff",
+                "on-primary-fixed": "#00164e"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+        },
+        "spacing": {
+                "card-padding": "16px",
+                "density-compact": "8px",
+                "unit": "4px",
+                "gutter": "16px",
+                "container-margin": "24px"
+        },
+        "fontFamily": {
+                "headline-md": [
+                        "Inter"
+                ],
+                "body-sm": [
+                        "Inter"
+                ],
+                "data-mono": [
+                        "JetBrains Mono"
+                ],
+                "headline-lg": [
+                        "Inter"
+                ],
+                "label-caps": [
+                        "Inter"
+                ],
+                "body-md": [
+                        "Inter"
+                ]
+        },
+        "fontSize": {
+                "headline-md": [
+                        "18px",
+                        {
+                                "lineHeight": "24px",
+                                "letterSpacing": "-0.01em",
+                                "fontWeight": "600"
+                        }
+                ],
+                "body-sm": [
+                        "13px",
+                        {
+                                "lineHeight": "18px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "data-mono": [
+                        "13px",
+                        {
+                                "lineHeight": "18px",
+                                "fontWeight": "500"
+                        }
+                ],
+                "headline-lg": [
+                        "24px",
+                        {
+                                "lineHeight": "32px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "600"
+                        }
+                ],
+                "label-caps": [
+                        "11px",
+                        {
+                                "lineHeight": "16px",
+                                "letterSpacing": "0.05em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "body-md": [
+                        "14px",
+                        {
+                                "lineHeight": "20px",
+                                "fontWeight": "400"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script><style>@layer base{body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}}::-webkit-scrollbar{display:none;}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head><body class="bg-surface text-on-surface font-body-md"><header class="fixed top-0 inset-x-0 z-50 bg-surface/90 backdrop-blur-md shadow-[0_1px_4px_rgba(0,0,0,0.05)] pt-safe border-b border-border-subtle"><div class="h-14 px-gutter flex items-center justify-between"><div class="flex items-center gap-density-compact"><img alt="PAIMANA AI Logo" class="h-6 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6s84ky70YHFIbpA2wOcsuoPlsz9qjOg0ipCqtZ1gTJAbIQ3qVkhlItYJ99VfwfvU0xjhDMPFU4A-nhJ_tBInXnRbM64wLG0NVXbOx8gZwuQsG-saSNjDRuSiSq1awnogsh_rYQcdmtU88IULYEQkAAQ04mAljkXDF2cRlMZk0bsQZSkP7Bj-rDzkEtYl0tAKS9TZcG2c0AbB3Wep7WZJ3pOzb-oLW2-OaQ-fKPln3x1tMnIisrGKW"><span class="font-headline-md text-headline-md tracking-tight text-on-surface">PAIMANA</span></div><div class="flex items-center gap-density-compact"><span class="font-label-caps text-label-caps text-on-surface-variant uppercase bg-surface-container px-2 py-0.5 rounded border border-border-subtle">Explorer</span><img alt="Profile" class="w-8 h-8 rounded-full object-cover border border-border-subtle" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfZuxcSmOqhrkKFOvcK0BIvvzyVj0JeHojss61BM8XL-99rwonDyTPSwBqkDsuj2xR87STIQMY327QqHJqv202c_wiSx2oG_LF1moD-nsEJX1-zU4uR2b_I72kaTkqoRrkJ2iNgnvElN7phI6lopvL0d3QRJtjltQyKu-ZiYK_slt6nrHHM4vkIvJjoxbpmFmtJPyC6LtgMW3tDZPHbg-lgK4c4R_8dmIeYX6HK3jUfBFH07gTmBFN"></div></div></header><main class="flex flex-col relative w-full pt-14 pb-20 bg-surface min-h-screen"><div class="flex flex-col w-full relative">
+<!-- Top Search & Filters Bar -->
+<div class="px-container-margin py-card-padding flex flex-col gap-gutter bg-surface z-10 sticky top-0 shadow-sm border-b border-border-subtle">
+<!-- Search Bar -->
+<div class="relative w-full group">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline-variant group-focus-within:text-primary transition-colors text-[20px]">search</span>
+</div>
+<input class="w-full bg-surface-card text-on-surface placeholder:text-outline-variant font-body-md py-2.5 pl-10 pr-12 rounded border border-border-subtle focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors shadow-sm" id="project-search" placeholder="Search projects, IDs, or sectors..." type="text">
+<div class="absolute inset-y-0 right-0 pr-2 flex items-center">
+<button class="p-1.5 text-outline hover:text-primary transition-colors rounded-sm flex items-center justify-center bg-surface-container hover:bg-surface-variant" id="open-filter-btn">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+</button>
+</div>
+</div>
+<!-- Quick Filters -->
+<div class="flex items-center gap-density-compact overflow-x-auto pb-1 -mx-container-margin px-container-margin scroll-smooth snap-x">
+<button class="snap-start flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 bg-primary-container text-white rounded-full text-label-caps font-label-caps tracking-wide whitespace-nowrap shadow-sm transition-all hover:bg-primary border border-transparent">
+        All Projects
+      </button>
+<div class="w-[1px] h-4 bg-border-subtle flex-shrink-0 mx-1"></div>
+<button class="snap-start flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 bg-surface-card text-on-surface-variant rounded-full text-label-caps font-label-caps tracking-wide whitespace-nowrap shadow-sm transition-all hover:bg-surface-variant border border-border-subtle filter-chip" data-filter="status-active">
+<span class="w-2 h-2 rounded-full bg-risk-low shadow-[0_0_8px_rgba(22,163,74,0.4)]"></span> Active
+      </button>
+<button class="snap-start flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 bg-surface-card text-on-surface-variant rounded-full text-label-caps font-label-caps tracking-wide whitespace-nowrap shadow-sm transition-all hover:bg-surface-variant border border-border-subtle filter-chip" data-filter="status-delayed">
+<span class="w-2 h-2 rounded-full bg-risk-medium"></span> Delayed
+      </button>
+<button class="snap-start flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 bg-surface-card text-on-surface-variant rounded-full text-label-caps font-label-caps tracking-wide whitespace-nowrap shadow-sm transition-all hover:bg-surface-variant border border-border-subtle filter-chip" data-filter="status-completed">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span> Completed
+      </button>
+<div class="w-[1px] h-4 bg-border-subtle flex-shrink-0 mx-1"></div>
+<button class="snap-start flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 bg-surface-card text-on-surface-variant rounded-full text-label-caps font-label-caps tracking-wide whitespace-nowrap shadow-sm transition-all hover:bg-surface-variant border border-border-subtle filter-chip" data-filter="risk-high">
+        Risk: High
+      </button>
+</div>
+</div>
+<!-- Results Table Container -->
+<div class="flex-1 flex flex-col px-0 py-card-padding pb-32">
+<div class="w-full overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-border-subtle bg-surface-container">
+<th class="px-container-margin py-2 text-label-caps font-label-caps text-on-surface-variant uppercase tracking-wider cursor-pointer hover:bg-surface-variant whitespace-nowrap group">Project <span class="material-symbols-outlined text-[14px] align-middle opacity-0 group-hover:opacity-100 transition-opacity">arrow_downward</span></th>
+<th class="px-3 py-2 text-label-caps font-label-caps text-on-surface-variant uppercase tracking-wider cursor-pointer hover:bg-surface-variant whitespace-nowrap group">Sector <span class="material-symbols-outlined text-[14px] align-middle opacity-0 group-hover:opacity-100 transition-opacity">arrow_downward</span></th>
+<th class="px-3 py-2 text-label-caps font-label-caps text-on-surface-variant uppercase tracking-wider cursor-pointer hover:bg-surface-variant whitespace-nowrap text-right group">Cost <span class="material-symbols-outlined text-[14px] align-middle opacity-0 group-hover:opacity-100 transition-opacity">arrow_downward</span></th>
+<th class="px-container-margin py-2 text-label-caps font-label-caps text-on-surface-variant uppercase tracking-wider cursor-pointer hover:bg-surface-variant whitespace-nowrap text-center group">Risk <span class="material-symbols-outlined text-[14px] align-middle opacity-0 group-hover:opacity-100 transition-opacity">arrow_downward</span></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-subtle bg-surface-card">
+<!-- Row 1 -->
+<tr class="hover:bg-surface cursor-pointer transition-colors group">
+<td class="px-container-margin py-3">
+<div class="flex flex-col">
+<span class="text-body-md font-medium text-on-surface group-hover:text-primary transition-colors line-clamp-1">Quantum Core Migration</span>
+<span class="text-data-mono text-outline-variant text-[11px]">PRJ-7892</span>
+</div>
+</td>
+<td class="px-3 py-3 text-body-sm text-on-surface-variant whitespace-nowrap">Infrastructure</td>
+<td class="px-3 py-3 text-data-mono font-data-mono text-on-surface text-right whitespace-nowrap tabular-nums">$12.4M</td>
+<td class="px-container-margin py-3 text-center">
+<div class="inline-flex items-center justify-center px-2 py-0.5 rounded-full bg-amber-100 border border-amber-200">
+<span class="w-1.5 h-1.5 rounded-full bg-risk-medium mr-1.5"></span>
+<span class="text-label-caps font-label-caps text-amber-800">MED</span>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface cursor-pointer transition-colors group">
+<td class="px-container-margin py-3">
+<div class="flex flex-col">
+<span class="text-body-md font-medium text-on-surface group-hover:text-primary transition-colors line-clamp-1">Neural Net Alpha</span>
+<span class="text-data-mono text-outline-variant text-[11px]">PRJ-7844</span>
+</div>
+</td>
+<td class="px-3 py-3 text-body-sm text-on-surface-variant whitespace-nowrap">R&amp;D</td>
+<td class="px-3 py-3 text-data-mono font-data-mono text-on-surface text-right whitespace-nowrap tabular-nums">$45.1M</td>
+<td class="px-container-margin py-3 text-center">
+<div class="inline-flex items-center justify-center px-2 py-0.5 rounded-full bg-red-100 border border-red-200">
+<span class="w-1.5 h-1.5 rounded-full bg-risk-high mr-1.5"></span>
+<span class="text-label-caps font-label-caps text-red-800">HIGH</span>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface cursor-pointer transition-colors group">
+<td class="px-container-margin py-3">
+<div class="flex flex-col">
+<span class="text-body-md font-medium text-on-surface group-hover:text-primary transition-colors line-clamp-1">Global DB Sync</span>
+<span class="text-data-mono text-outline-variant text-[11px]">PRJ-7901</span>
+</div>
+</td>
+<td class="px-3 py-3 text-body-sm text-on-surface-variant whitespace-nowrap">Operations</td>
+<td class="px-3 py-3 text-data-mono font-data-mono text-on-surface text-right whitespace-nowrap tabular-nums">$3.2M</td>
+<td class="px-container-margin py-3 text-center">
+<div class="inline-flex items-center justify-center px-2 py-0.5 rounded-full bg-green-100 border border-green-200">
+<span class="w-1.5 h-1.5 rounded-full bg-risk-low mr-1.5"></span>
+<span class="text-label-caps font-label-caps text-green-800">LOW</span>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface cursor-pointer transition-colors group">
+<td class="px-container-margin py-3">
+<div class="flex flex-col">
+<span class="text-body-md font-medium text-on-surface group-hover:text-primary transition-colors line-clamp-1">Satellite Uplink v2</span>
+<span class="text-data-mono text-outline-variant text-[11px]">PRJ-8012</span>
+</div>
+</td>
+<td class="px-3 py-3 text-body-sm text-on-surface-variant whitespace-nowrap">Comms</td>
+<td class="px-3 py-3 text-data-mono font-data-mono text-on-surface text-right whitespace-nowrap tabular-nums">$8.9M</td>
+<td class="px-container-margin py-3 text-center">
+<div class="inline-flex items-center justify-center px-2 py-0.5 rounded-full bg-amber-100 border border-amber-200">
+<span class="w-1.5 h-1.5 rounded-full bg-risk-medium mr-1.5"></span>
+<span class="text-label-caps font-label-caps text-amber-800">MED</span>
+</div>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-surface cursor-pointer transition-colors group">
+<td class="px-container-margin py-3">
+<div class="flex flex-col">
+<span class="text-body-md font-medium text-on-surface group-hover:text-primary transition-colors line-clamp-1">Bio-Synthetic Interface</span>
+<span class="text-data-mono text-outline-variant text-[11px]">PRJ-8105</span>
+</div>
+</td>
+<td class="px-3 py-3 text-body-sm text-on-surface-variant whitespace-nowrap">Healthcare</td>
+<td class="px-3 py-3 text-data-mono font-data-mono text-on-surface text-right whitespace-nowrap tabular-nums">$112.5M</td>
+<td class="px-container-margin py-3 text-center">
+<div class="inline-flex items-center justify-center px-2 py-0.5 rounded-full bg-red-100 border border-red-200">
+<span class="w-1.5 h-1.5 rounded-full bg-risk-high mr-1.5"></span>
+<span class="text-label-caps font-label-caps text-red-800">HIGH</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="px-container-margin mt-6">
+<button class="w-full py-3 border border-border-subtle bg-surface-card rounded-lg text-body-sm text-primary font-medium hover:bg-surface-variant transition-colors flex items-center justify-center gap-2 shadow-sm">
+      Load More <span class="material-symbols-outlined text-[16px]">expand_more</span>
+</button>
+</div>
+</div>
+<!-- Filter Sidebar (Modal Overlay for Mobile) -->
+<div class="fixed inset-0 z-[60] bg-bg-dark/50 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 flex justify-end" id="filter-modal">
+<div class="w-[85%] max-w-sm h-full bg-surface-card border-l border-border-subtle shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col" id="filter-panel">
+<div class="px-container-margin py-4 flex items-center justify-between border-b border-border-subtle bg-surface-container">
+<h2 class="text-headline-md font-headline-md text-on-surface">Filters</h2>
+<button class="p-2 text-outline-variant hover:text-on-surface rounded-full hover:bg-surface-variant transition-colors" id="close-filter-btn">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<div class="flex-1 overflow-y-auto p-container-margin flex flex-col gap-6">
+<!-- Ministry -->
+<div class="flex flex-col gap-2">
+<label class="text-label-caps font-label-caps text-outline uppercase">Ministry</label>
+<select class="w-full bg-surface text-on-surface text-body-md py-2.5 px-3 rounded border border-border-subtle focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary appearance-none">
+<option>All Ministries</option>
+<option>Defense</option>
+<option>Health</option>
+<option>Technology</option>
+</select>
+</div>
+<!-- Sector -->
+<div class="flex flex-col gap-2">
+<label class="text-label-caps font-label-caps text-outline uppercase">Sector</label>
+<select class="w-full bg-surface text-on-surface text-body-md py-2.5 px-3 rounded border border-border-subtle focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary appearance-none">
+<option>All Sectors</option>
+<option>Infrastructure</option>
+<option>R&amp;D</option>
+<option>Operations</option>
+</select>
+</div>
+<!-- Status -->
+<div class="flex flex-col gap-2">
+<label class="text-label-caps font-label-caps text-outline uppercase">Status</label>
+<div class="flex flex-wrap gap-2">
+<label class="flex items-center gap-2 px-3 py-1.5 bg-primary-container text-white rounded border border-primary text-body-sm cursor-pointer shadow-sm">
+<input checked="" class="hidden" type="checkbox"> Active
+            </label>
+<label class="flex items-center gap-2 px-3 py-1.5 bg-surface rounded border border-border-subtle text-on-surface-variant text-body-sm cursor-pointer hover:border-outline-variant">
+<input class="hidden" type="checkbox"> Delayed
+            </label>
+<label class="flex items-center gap-2 px-3 py-1.5 bg-surface rounded border border-border-subtle text-on-surface-variant text-body-sm cursor-pointer hover:border-outline-variant">
+<input class="hidden" type="checkbox"> Completed
+            </label>
+</div>
+</div>
+<!-- Risk Level -->
+<div class="flex flex-col gap-2">
+<label class="text-label-caps font-label-caps text-outline uppercase">Risk Level</label>
+<div class="flex flex-wrap gap-2">
+<label class="flex items-center gap-2 px-3 py-1.5 bg-surface rounded border border-border-subtle text-on-surface-variant text-body-sm cursor-pointer hover:border-outline-variant">
+<input class="hidden" type="checkbox"> Low
+            </label>
+<label class="flex items-center gap-2 px-3 py-1.5 bg-surface rounded border border-border-subtle text-on-surface-variant text-body-sm cursor-pointer hover:border-outline-variant">
+<input class="hidden" type="checkbox"> Medium
+            </label>
+<label class="flex items-center gap-2 px-3 py-1.5 bg-red-50 text-red-800 rounded border border-red-200 text-body-sm cursor-pointer shadow-sm">
+<input checked="" class="hidden" type="checkbox"> High
+            </label>
+</div>
+</div>
+<!-- Cost Band -->
+<div class="flex flex-col gap-3">
+<div class="flex justify-between items-center">
+<label class="text-label-caps font-label-caps text-outline uppercase">Cost Band</label>
+<span class="text-data-mono font-data-mono text-primary bg-primary/10 px-2 py-0.5 rounded">Up to $50M</span>
+</div>
+<input class="w-full h-1.5 bg-surface-variant rounded-lg appearance-none cursor-pointer accent-primary" max="200" min="0" type="range" value="50">
+<div class="flex justify-between text-label-caps text-outline-variant font-data-mono">
+<span>$0</span>
+<span>$200M+</span>
+</div>
+</div>
+</div>
+<div class="p-container-margin border-t border-border-subtle flex gap-3 bg-surface-container">
+<button class="flex-1 py-2.5 px-4 bg-surface-card border border-border-subtle text-on-surface rounded text-body-sm font-medium hover:bg-surface-variant transition-colors shadow-sm">Reset</button>
+<button class="flex-1 py-2.5 px-4 bg-primary text-white rounded text-body-sm font-medium hover:bg-primary-container transition-colors shadow-sm">Apply Filters</button>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Simple interaction script for filters
+  document.addEventListener('DOMContentLoaded', () => {
+    const filterBtn = document.getElementById('open-filter-btn');
+    const closeBtn = document.getElementById('close-filter-btn');
+    const modal = document.getElementById('filter-modal');
+    const panel = document.getElementById('filter-panel');
+    
+    function openFilters() {
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      panel.classList.remove('translate-x-full');
+    }
+    
+    function closeFilters() {
+      modal.classList.add('opacity-0', 'pointer-events-none');
+      panel.classList.add('translate-x-full');
+    }
+
+    filterBtn.addEventListener('click', openFilters);
+    closeBtn.addEventListener('click', closeFilters);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeFilters();
+    });
+
+    // Toggle quick filter chips
+    const chips = document.querySelectorAll('.filter-chip');
+    chips.forEach(chip => {
+      chip.addEventListener('click', function() {
+        this.classList.toggle('bg-surface-card');
+        this.classList.toggle('bg-primary-container');
+        this.classList.toggle('text-on-surface-variant');
+        this.classList.toggle('text-white');
+        this.classList.toggle('border-border-subtle');
+        this.classList.toggle('border-primary');
+      });
+    });
+  });
+</script></main><nav class="fixed bottom-0 inset-x-0 z-50 pb-safe bg-surface-card/90 backdrop-blur-xl shadow-[0_-1px_4px_rgba(0,0,0,0.05)] border-t border-border-subtle" data-active-classes="text-primary font-semibold"><div class="flex justify-around items-center h-16 px-2"><a class="flex flex-col items-center justify-center gap-0.5 w-16 h-14 text-on-surface-variant transition-all hover:text-primary" data-path="portfolio" href="#"><span class="material-symbols-outlined text-[24px]">home</span><span class="font-label-caps text-label-caps">Portfolio</span></a><a aria-current="page" class="flex flex-col items-center justify-center gap-0.5 w-16 h-14 transition-all text-primary font-semibold" data-path="explorer" href="#"><span class="material-symbols-outlined text-[24px]">grid_view</span><span class="font-label-caps text-label-caps">Explorer</span></a><a class="flex flex-col items-center justify-center gap-0.5 w-16 h-14 text-on-surface-variant transition-all relative hover:text-primary" data-path="alerts" href="#"><span class="material-symbols-outlined text-[24px]">notifications</span><span class="font-label-caps text-label-caps">Alerts</span><span class="absolute top-2 right-4 w-2 h-2 bg-risk-high rounded-full ring-2 ring-surface-card"></span></a><a class="flex flex-col items-center justify-center gap-0.5 w-16 h-14 text-on-surface-variant transition-all hover:text-primary" data-path="comparison" href="#"><span class="material-symbols-outlined text-[24px]">monitoring</span><span class="font-label-caps text-label-caps">Compare</span></a><a class="flex flex-col items-center justify-center gap-0.5 w-16 h-14 text-on-surface-variant transition-all hover:text-primary" data-path="settings" href="#"><span class="material-symbols-outlined text-[24px]">settings</span><span class="font-label-caps text-label-caps">Settings</span></a></div></nav></body></html>

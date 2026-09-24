@@ -1,0 +1,15 @@
+.env
+.env.*
+*.db
+*.sqlite
+*.sqlite3
+artifacts/
+data/uploads/
+__pycache__/
+.pytest_cache/
+.git
+.gitignore
+frontend/node_modules/
+frontend/dist/
+stitch_assets/
+PAIMANA_AI_CODE_BUNDLE.txt
