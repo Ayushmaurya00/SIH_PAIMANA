@@ -113,13 +113,13 @@ export const SignInForm = ({
         </button>
       </form>
 
-      <div className="mt-8 pt-6 border-t border-slate-100 text-xs text-slate-500">
-        <p className="font-semibold text-slate-700 mb-1.5">Official Credentials Reference:</p>
-        <div className="space-y-1 text-[11px] text-slate-600 bg-slate-50 p-2.5 rounded border border-slate-200">
-          <div><span className="font-medium text-slate-900">Admin:</span> admin@mospi.gov.in / Admin@MoSPI2026!</div>
-          <div><span className="font-medium text-slate-900">Officer:</span> rajesh.sharma@mospi.gov.in / Paimana@123</div>
-        </div>
-      </div>
+      {/* <div className="mt-8 pt-6 border-t border-slate-100 text-xs text-slate-500"> */}
+      {/* <p className="font-semibold text-slate-700 mb-1.5">Official Credentials Reference:</p>
+      <div className="space-y-1 text-[11px] text-slate-600 bg-slate-50 p-2.5 rounded border border-slate-200">
+        <div><span className="font-medium text-slate-900">Admin:</span> admin@mospi.gov.in / Admin@MoSPI2026!</div>
+        <div><span className="font-medium text-slate-900">Officer:</span> rajesh.sharma@mospi.gov.in / Paimana@123</div>
+      </div> */}
+      {/* </div> */}
     </div>
   );
 };
