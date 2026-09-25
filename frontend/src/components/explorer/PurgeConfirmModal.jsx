@@ -51,12 +51,12 @@ export const PurgeConfirmModal = ({ isOpen, onClose, onConfirm, loading = false 
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 animate-fade-in"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/20 backdrop-blur-md animate-fade-in"
       style={{
-        backgroundColor: 'rgba(2, 6, 23, 0.6)',
-        backdropFilter: 'blur(12px)',
-        WebkitBackdropFilter: 'blur(12px)'
+        backdropFilter: 'blur(8px)',
+        WebkitBackdropFilter: 'blur(8px)'
       }}
+      onClick={(e) => { if (e.target === e.currentTarget && !loading) onClose(); }}
       role="alertdialog"
       aria-modal="true"
       aria-labelledby="purge-modal-title"
