@@ -37,10 +37,13 @@ LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO").upper()
 logging.basicConfig(level=getattr(logging, LOG_LEVEL, logging.INFO), format='[%(asctime)s] %(levelname)s - %(name)s - %(message)s')
 logger = logging.getLogger("PAIMANA_API")
 
-raw_origins = os.getenv("ALLOWED_ORIGINS", "http://localhost:5173,http://localhost:3000,http://127.0.0.1:5173,http://127.0.0.1:3000")
+raw_origins = os.getenv(
+    "ALLOWED_ORIGINS",
+    "http://localhost:5173,http://localhost:3000,http://127.0.0.1:5173,http://127.0.0.1:3000,https://sih-paimana.vercel.app"
+)
 allowed_origins = [orig.strip() for orig in raw_origins.split(",") if orig.strip() and orig.strip() != "*"]
-if not allowed_origins:
-    allowed_origins = ["http://localhost:5173", "http://localhost:3000", "http://127.0.0.1:5173", "http://127.0.0.1:3000"]
+if "https://sih-paimana.vercel.app" not in allowed_origins:
+    allowed_origins.append("https://sih-paimana.vercel.app")
 
 ENVIRONMENT = os.getenv("ENVIRONMENT", "development")
 
@@ -50,24 +53,16 @@ app = FastAPI(
     version="2.0.0"
 )
 
-# In production, disable regex to avoid credential leakage; use explicit origins
-if ENVIRONMENT == "production":
-    app.add_middleware(
-        CORSMiddleware,
-        allow_origins=allowed_origins,
-        allow_credentials=False,
-        allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-        allow_headers=["Authorization", "Content-Type"],
-    )
-else:
-    app.add_middleware(
-        CORSMiddleware,
-        allow_origins=allowed_origins,
-        allow_origin_regex=r"^https?://(localhost|127\.0\.0\.1)(:\d+)?$",
-        allow_credentials=True,
-        allow_methods=["*"],
-        allow_headers=["*"],
-    )
+# Support explicit origins, localhost regex, and all *.vercel.app deployment domains
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=allowed_origins,
+    allow_origin_regex=r"^https?://(localhost|127\.0\.0\.1|[a-zA-Z0-9-]+\.vercel\.app)(:\d+)?$",
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 
 @app.middleware("http")
@@ -108,6 +103,26 @@ async def global_exception_handler(request: Request, exc: Exception):
 for r in [health_router, dashboard_router, projects_router, alerts_router, models_router, assistant_router, filters_router, export_router, import_router, auth_router]:
     app.include_router(r)
 
+@app.on_event("startup")
+def startup_db_check():
+    """Ensures database schema and baseline records exist upon deployment startup."""
+    try:
+        from src.api.db import DB_PATH
+        import sqlite3
+        conn = sqlite3.connect(DB_PATH, timeout=5.0)
+        has_projects = conn.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='projects'").fetchone()
+        conn.close()
+        if not has_projects:
+            logger.info("Initializing baseline database on startup...")
+            from src.data_gen.seeder import generate_synthetic_cuf_dataset
+            generate_synthetic_cuf_dataset(n_projects=100, db_path=DB_PATH)
+            from src.risk_engine.scorer import run_risk_scoring_pipeline
+            run_risk_scoring_pipeline(db_path=DB_PATH, artifacts_dir=os.path.join(ROOT_DIR, "artifacts", "models"))
+            logger.info("Startup database initialization completed successfully.")
+    except Exception as exc:
+        logger.warning(f"Startup database check notice: {exc}")
+
 # Backward Compatibility Re-exports (singleton)
 rate_limiter = get_global_limiter(requests_per_minute=int(os.getenv("RATE_LIMIT_PER_MINUTE", "30")))
 rag_service = ProjectIntelligenceService()
+
