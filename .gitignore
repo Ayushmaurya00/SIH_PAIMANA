@@ -32,8 +32,9 @@ ENV/
 .env.*.local
 
 # Database
-*.db
 *.sqlite3
+*.db
+!paimana.db
 
 # Node / React
 node_modules/
