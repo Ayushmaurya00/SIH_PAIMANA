@@ -6,6 +6,26 @@
 @tailwind utilities;
 
 /* ==========================================================================
+   Global 125% Visual Scaling & Viewport Zoom Emulation
+   ========================================================================== */
+html {
+  font-size: 20px;
+}
+
+body {
+  zoom: 1.25;
+}
+
+@supports not (zoom: 1.25) {
+  body {
+    transform: scale(1.25);
+    transform-origin: top center;
+    width: 80%;
+    margin: 0 auto;
+  }
+}
+
+/* ==========================================================================
    PAIMANA AI — MoSPI / IPMD Government Decision Support Design System
    ========================================================================== */
 
@@ -40,31 +60,10 @@ html, body {
 }
 
 /* Typography Hierarchy */
-h1 {
-  font-size: 20px;
-  font-weight: 800;
-  line-height: 28px;
-  color: var(--text-primary);
-  letter-spacing: -0.015em;
-}
-
-h2 {
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 24px;
-  color: var(--text-primary);
-}
-
-h3 {
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 20px;
-  color: var(--text-primary);
-}
-
-p {
-  color: var(--text-secondary);
-}
+h1 { font-size: 20px; font-weight: 800; line-height: 28px; color: var(--text-primary); letter-spacing: -0.015em; }
+h2 { font-size: 16px; font-weight: 700; line-height: 24px; color: var(--text-primary); }
+h3 { font-size: 14px; font-weight: 600; line-height: 20px; color: var(--text-primary); }
+p { color: var(--text-secondary); }
 
 /* Standardized Executive Cards (White, Subtle Border, No Default Shadow) */
 .card, .surface-card {
