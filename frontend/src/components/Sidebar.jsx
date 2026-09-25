@@ -11,13 +11,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
-const NAV_ITEMS = [
-  {
-    to: '/',
-    label: 'Portfolio Overview',
-    icon: LayoutDashboard,
-    badge: null
-  },
+const COMMON_NAV_ITEMS = [
   {
     to: '/explorer',
     label: 'Central Directory',
@@ -38,23 +32,29 @@ const NAV_ITEMS = [
   }
 ];
 
+const PORTFOLIO_OVERVIEW_ITEM = {
+  to: '/',
+  label: 'Portfolio Overview',
+  icon: LayoutDashboard,
+  badge: null,
+};
+
 export const Sidebar = () => {
   const { user } = useAuth();
   const isAdmin = user && user.role === 'admin';
 
-  const navItems = [
-    ...NAV_ITEMS,
-    ...(isAdmin
-      ? [
-          {
-            to: '/admin',
-            label: 'Registry Console',
-            icon: Shield,
-            badge: 'Admin',
-          },
-        ]
-      : []),
-  ];
+  const navItems = isAdmin
+    ? [
+        PORTFOLIO_OVERVIEW_ITEM,
+        ...COMMON_NAV_ITEMS,
+        {
+          to: '/admin',
+          label: 'Registry Console',
+          icon: Shield,
+          badge: 'Admin',
+        },
+      ]
+    : [PORTFOLIO_OVERVIEW_ITEM, ...COMMON_NAV_ITEMS];
 
   const [isCollapsed, setIsCollapsed] = useState(() => {
     try {

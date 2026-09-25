@@ -20,7 +20,8 @@ const AdminPage = lazy(() => import('./pages/AdminPage'));
 // Layout Wrapper Component to conditionally render Header and Sidebar
 const MainLayout = ({ onOpenAssistant, onOpenImport, alertCount, assistantContextPid, isAssistantOpen, setIsAssistantOpen, isImportOpen, setIsImportOpen }) => {
   const location = useLocation();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
+  const isAdmin = user && user.role === 'admin';
   const isAuthPage = ['/login', '/signin', '/signup', '/register'].includes(location.pathname);
 
   // Redirect to login if user is not signed in
@@ -28,7 +29,7 @@ const MainLayout = ({ onOpenAssistant, onOpenImport, alertCount, assistantContex
     return <Navigate to="/login" replace />;
   }
 
-  // Redirect to dashboard if signed-in officer visits login/register
+  // Redirect to landing page if signed-in officer visits login/register
   if (isAuthenticated && isAuthPage) {
     return <Navigate to="/" replace />;
   }
@@ -78,7 +79,10 @@ const MainLayout = ({ onOpenAssistant, onOpenImport, alertCount, assistantContex
                 <Route path="/alerts" element={<AlertsPage />} />
                 <Route path="/models" element={<ModelComparisonPage />} />
                 <Route path="/methodology-audit" element={<ModelComparisonPage />} />
-                <Route path="/admin" element={<AdminPage />} />
+                <Route
+                  path="/admin"
+                  element={isAdmin ? <AdminPage /> : <Navigate to="/explorer" replace />}
+                />
                 <Route path="*" element={<Navigate to="/" replace />} />
               </Routes>
             </Suspense>

@@ -2,11 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ShieldAlert, AlertTriangle, ArrowRight, CheckCircle2, Clock } from 'lucide-react';
 import Card from '../Card';
-import { useAuth } from '../../context/AuthContext';
 
 export const AlertCardItem = ({ alert, onReview }) => {
-  const { user } = useAuth();
-  const isAuditor = user && user.role === 'auditor';
   const isHigh = alert.severity === 'High';
   const isNew = alert.status === 'New';
 
@@ -71,15 +68,10 @@ export const AlertCardItem = ({ alert, onReview }) => {
             {isNew && (
               <button
                 type="button"
-                disabled={isAuditor}
-                onClick={() => !isAuditor && onReview(alert.alert_id)}
-                title={isAuditor ? "Requires Nodal Desk Officer Clearance" : `Acknowledge escalation alert for ${alert.project_id}`}
+                onClick={() => onReview(alert.alert_id)}
+                title={`Acknowledge escalation alert for ${alert.project_id}`}
                 aria-label={`Acknowledge escalation alert for ${alert.project_id}`}
-                className={`text-xs px-2.5 py-1.5 rounded-lg font-medium transition-colors ${
-                  isAuditor
-                    ? 'bg-slate-100 text-slate-400 border border-slate-200 cursor-not-allowed'
-                    : 'bg-surface-subtle hover:bg-surface-elevated text-text-primary border border-border-rest cursor-pointer'
-                }`}
+                className="text-xs px-2.5 py-1.5 rounded-lg font-medium transition-colors bg-surface-subtle hover:bg-surface-elevated text-text-primary border border-border-rest cursor-pointer"
               >
                 Acknowledge
               </button>

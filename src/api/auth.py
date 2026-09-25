@@ -41,8 +41,7 @@ DEMO_PASSWORD_HASH = _hash_pwd("Paimana@123")
 DEMO_PWD_SALT = "paimana-salt-v1"
 
 def hash_password(plain: str) -> str:
-    if _HAS_BCRYPT and bcrypt is not None:
-        return bcrypt.hashpw(plain.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
+    # Use deterministic PBKDF2 to ensure universal compatibility across all Python environments
     return _hash_pwd(plain, DEMO_PWD_SALT)
 
 def verify_password(plain: str, hashed: str) -> bool:
@@ -129,17 +128,18 @@ def require_role(allowed_roles: list[str]):
     Validates JWT role claims.
     Returns a 403 Forbidden statutory clearance error if unauthorized.
     """
+    normalized_allowed = set(allowed_roles)
+    for r in allowed_roles:
+        if r in ("admin", "MoSPI Registry Official", "Cabinet Review Authority"):
+            normalized_allowed.add("admin")
+        else:
+            normalized_allowed.add("employee")
+
     async def _role_checker(user: Dict[str, Any] = Depends(get_current_user)):
         user_role = user.get("role", "")
-        mapped_role = user_role
-        if user_role in ("Cabinet Review Authority", "MoSPI Registry Official"):
-            mapped_role = "admin"
-        elif user_role in ("Review Authority", "Implementing Authority", "Nodal Desk Officer"):
-            mapped_role = "nodal_officer"
-        elif user_role in ("Auditor", "Read-Only Auditor"):
-            mapped_role = "auditor"
+        mapped_role = "admin" if user_role in ("admin", "Cabinet Review Authority", "MoSPI Registry Official") else "employee"
 
-        if mapped_role not in allowed_roles and user_role not in allowed_roles:
+        if mapped_role not in normalized_allowed and user_role not in normalized_allowed:
             raise HTTPException(
                 status_code=403,
                 detail=f"Statutory clearance error: Insufficient administrative privileges. Required statutory role in {allowed_roles}, but current officer role is '{user_role}'."

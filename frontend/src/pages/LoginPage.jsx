@@ -50,8 +50,9 @@ export const LoginPage = () => {
       setLoading(true);
       const res = await login(cleanInput, password);
       if (res && res.success) {
-        setSuccessMessage(`Access Granted. Welcome, ${res.user.name || 'Officer'}.`);
-        setTimeout(() => navigate('/'), 300);
+        setSuccessMessage(`Access Granted. Welcome, ${res.user?.name || 'Officer'}.`);
+        const targetPath = res.user?.role === 'admin' ? '/' : '/explorer';
+        setTimeout(() => navigate(targetPath), 300);
       } else {
         setErrorMessage(res?.error || 'Authentication failed. Please verify credentials.');
       }
@@ -78,12 +79,13 @@ export const LoginPage = () => {
         email: regEmail.trim(),
         password: regPassword,
         ministry: 'Ministry of Statistics and Programme Implementation',
-        designation: 'Project Monitoring Officer',
-        role: 'Review Authority'
+        designation: 'Operations Employee',
+        role: 'employee'
       });
       if (res && res.success) {
         setSuccessMessage('Officer identity registered successfully. Redirecting...');
-        setTimeout(() => navigate('/'), 400);
+        const targetPath = res.user?.role === 'admin' ? '/' : '/explorer';
+        setTimeout(() => navigate(targetPath), 400);
       } else {
         setErrorMessage(res?.error || 'Failed to register officer credentials.');
       }
@@ -94,8 +96,17 @@ export const LoginPage = () => {
     }
   };
 
+  React.useEffect(() => {
+    document.documentElement.classList.add('auth-page');
+    document.body.classList.add('auth-page');
+    return () => {
+      document.documentElement.classList.remove('auth-page');
+      document.body.classList.remove('auth-page');
+    };
+  }, []);
+
   return (
-    <div className="h-screen max-h-screen overflow-hidden bg-white text-slate-900 flex flex-col justify-between font-sans">
+    <div className="auth-viewport-root h-[100dvh] max-h-[100dvh] overflow-hidden bg-white text-slate-900 flex flex-col justify-between font-sans">
       <AuthHeader />
 
       <main className="flex-1 flex flex-col items-center justify-center px-4 md:px-8 py-2 overflow-y-auto lg:overflow-hidden">

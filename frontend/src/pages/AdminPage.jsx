@@ -29,13 +29,13 @@ export const AdminPage = () => {
           Your current account role is <span className="font-mono font-bold text-slate-800">{user?.role || 'Guest'}</span>.
         </p>
         <div className="pt-2">
-          <a
-            href="/"
+          <Link
+            to="/explorer"
             className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
-            <span>Return to Portfolio Overview</span>
-          </a>
+            <span>Return to Central Directory</span>
+          </Link>
         </div>
       </div>
     );

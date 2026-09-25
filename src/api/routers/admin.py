@@ -28,7 +28,7 @@ class ProvisionUserRequest(BaseModel):
     full_name: str = Field(..., min_length=2, max_length=150, description="Full Name and Official Rank")
     email: EmailStr = Field(..., description="Official Government Email")
     department: str = Field(..., min_length=2, max_length=200, description="Ministry or Department Sector")
-    role: str = Field(..., pattern="^(admin|nodal_officer|auditor)$", description="Role clearance")
+    role: str = Field(..., pattern="^(admin|employee|nodal_officer|auditor)$", description="Role clearance")
     temporary_password: str = Field(..., min_length=8, description="Initial One-Time Temporary Password")
 
 
@@ -48,11 +48,11 @@ async def get_personnel_roster(
     users = list_all_users(conn)
     roster = []
     for u in users:
-        role = u.get("role", "nodal_officer")
+        raw_role = u.get("role", "employee")
+        role = "admin" if raw_role == "admin" else "employee"
         designation = (
             "MoSPI Registry Official" if role == "admin"
-            else "Nodal Desk Officer" if role == "nodal_officer"
-            else "Read-Only Auditor"
+            else "Operations Employee"
         )
         roster.append({
             "id": u["id"],
@@ -87,13 +87,14 @@ async def provision_officer_credentials(
         )
 
     hashed_pwd = hash_password(req.temporary_password)
+    target_role = "admin" if req.role == "admin" else "employee"
     new_user = create_user(
         conn,
         {
             "full_name": req.full_name.strip(),
             "email": clean_email,
             "department": req.department.strip(),
-            "role": req.role,
+            "role": target_role,
         },
         hashed_pwd,
     )
@@ -101,7 +102,7 @@ async def provision_officer_credentials(
     if not new_user:
         raise HTTPException(status_code=500, detail="Failed to persist newly provisioned officer record.")
 
-    role = new_user.get("role", "nodal_officer")
+    role = "admin" if new_user.get("role") == "admin" else "employee"
     return {
         "status": "success",
         "message": f"Officer credentials provisioned for {clean_email}.",
@@ -113,8 +114,7 @@ async def provision_officer_credentials(
             "role": role,
             "designation": (
                 "MoSPI Registry Official" if role == "admin"
-                else "Nodal Desk Officer" if role == "nodal_officer"
-                else "Read-Only Auditor"
+                else "Operations Employee"
             ),
             "is_active": bool(new_user.get("is_active", 1)),
             "created_at": new_user.get("created_at"),

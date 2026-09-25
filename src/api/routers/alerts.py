@@ -101,7 +101,7 @@ def get_alerts_count(
 @router.post("/api/alerts/{alert_id}/review")
 def review_alert(
     alert_id: int,
-    current_user: dict = Depends(require_role(["admin", "nodal_officer"]))
+    current_user: dict = Depends(require_role(["admin", "employee"]))
 ):
     conn = None
     try:

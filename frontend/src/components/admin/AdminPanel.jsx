@@ -131,10 +131,9 @@ export const AdminPanel = () => {
             onChange={(e) => setRoleFilter(e.target.value)}
             className="text-xs py-1.5 px-3 rounded-lg border border-slate-300 bg-white focus:ring-2 focus:ring-indigo-600 focus:outline-none"
           >
-            <option value="all">All Statutory Clearances</option>
+            <option value="all">All Roles</option>
             <option value="admin">MoSPI Registry Official</option>
-            <option value="nodal_officer">Nodal Desk Officer</option>
-            <option value="auditor">Read-Only Auditor</option>
+            <option value="employee">Operations Employee</option>
           </select>
         </div>
       </div>

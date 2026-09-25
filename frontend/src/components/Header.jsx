@@ -29,11 +29,13 @@ export const Header = ({ onOpenAssistant, onOpenImport, alertCount = 0 }) => {
     navigate('/login');
   };
 
+  const isAdmin = user && user.role === 'admin';
+
   return (
     <header className="sticky top-0 z-40 bg-surface-elevated border-b border-border-rest h-14">
       <div className="max-w-7xl mx-auto px-6 h-full flex items-center justify-between gap-4">
         {/* Identity & Department Badge */}
-        <Link to="/" aria-label="PAIMANA AI Home" className="flex items-center gap-3 group">
+        <Link to={isAdmin ? "/" : "/explorer"} aria-label="PAIMANA AI Home" className="flex items-center gap-3 group">
           <div className="w-8 h-8 rounded-lg bg-primary-sovereign text-white flex items-center justify-center shrink-0 shadow-sm group-hover:bg-blue-900 transition-colors">
             <Shield className="w-4 h-4 text-amber-400" aria-hidden="true" />
           </div>
@@ -68,14 +70,13 @@ export const Header = ({ onOpenAssistant, onOpenImport, alertCount = 0 }) => {
                   <div className="w-7 h-7 rounded-full bg-gradient-to-br from-primary-sovereign via-blue-900 to-indigo-950 text-amber-300 text-[11px] font-bold flex items-center justify-center shadow-xs ring-1.5 ring-white">
                     {user.avatar || 'GO'}
                   </div>
-                  {/* <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white" title="Active session" /> */}
                 </div>
                 <div className="text-left leading-tight max-w-[130px]">
                   <span className="text-[12px] font-semibold text-slate-800 group-hover:text-primary-sovereign block truncate transition-colors">
-                    {user.name.split(',')[0]}
+                    {(user?.name || user?.email || 'Officer').split(',')[0]}
                   </span>
                   <span className="text-[10px] text-slate-500 block truncate font-medium">
-                    {user.role === 'admin' ? 'MoSPI Registry Official' : (user.role === 'auditor' ? 'Read-Only Auditor' : (user.role === 'nodal_officer' ? 'Nodal Desk Officer' : user.role || 'Officer'))}
+                    {isAdmin ? 'MoSPI Registry Official' : 'Operations Employee'}
                   </span>
                 </div>
                 <ChevronDown
@@ -106,7 +107,7 @@ export const Header = ({ onOpenAssistant, onOpenImport, alertCount = 0 }) => {
                       <p className="flex items-center gap-1.5">
                         <UserCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" aria-hidden="true" />
                         <span className="font-semibold text-emerald-700">
-                          {user.role === 'admin' ? 'MoSPI Registry Official' : (user.role === 'auditor' ? 'Read-Only Auditor' : (user.role === 'nodal_officer' ? 'Nodal Desk Officer' : user.role))}
+                          {isAdmin ? 'MoSPI Registry Official' : 'Operations Employee'}
                         </span>
                       </p>
                     </div>

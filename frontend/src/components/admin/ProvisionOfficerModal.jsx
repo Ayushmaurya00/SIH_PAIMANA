@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { X, KeyRound, ShieldAlert, CheckCircle2, UserPlus } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
+import { X, KeyRound, ShieldAlert, UserPlus } from 'lucide-react';
 import { CANONICAL_MINISTRIES } from '../../context/demoProfiles';
 import { createAdminUser } from '../../api/client';
 
@@ -7,10 +8,23 @@ export const ProvisionOfficerModal = ({ isOpen, onClose, onSuccess }) => {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [department, setDepartment] = useState(CANONICAL_MINISTRIES[0]);
-  const [role, setRole] = useState('nodal_officer');
+  const [role, setRole] = useState('employee');
   const [tempPassword, setTempPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  // Escape key dismiss + body scroll-lock while open
+  useEffect(() => {
+    if (!isOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const onKey = (e) => { if (e.key === 'Escape') onClose(); };
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.body.style.overflow = prev;
+      document.removeEventListener('keydown', onKey);
+    };
+  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
@@ -57,8 +71,13 @@ export const ProvisionOfficerModal = ({ isOpen, onClose, onSuccess }) => {
     }
   };
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs animate-fade-in">
+  return createPortal(
+    <div
+      className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm"
+      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
+      aria-modal="true"
+      role="dialog"
+    >
       <div className="bg-white rounded-2xl border border-slate-200 shadow-2xl max-w-lg w-full overflow-hidden">
         <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -79,7 +98,7 @@ export const ProvisionOfficerModal = ({ isOpen, onClose, onSuccess }) => {
 
         <form onSubmit={handleSubmit} className="p-6 space-y-4 text-xs">
           <div>
-            <label className="block font-semibold text-slate-700 mb-1">Official Full Name & Rank</label>
+            <label className="block font-semibold text-slate-700 mb-1">Official Full Name &amp; Rank</label>
             <input
               type="text"
               required
@@ -122,8 +141,7 @@ export const ProvisionOfficerModal = ({ isOpen, onClose, onSuccess }) => {
               onChange={(e) => setRole(e.target.value)}
               className="w-full px-3 py-2 border border-slate-300 rounded-lg text-slate-900 bg-white focus:ring-2 focus:ring-indigo-600 focus:outline-none"
             >
-              <option value="nodal_officer">Nodal Desk Officer (Operational Oversight & Review)</option>
-              <option value="auditor">Read-Only Auditor (Statutory Review & Read-Only Access)</option>
+              <option value="employee">Employee (Operational Project Access &amp; Alerts)</option>
               <option value="admin">MoSPI Registry Official (Full Registry Administration)</option>
             </select>
           </div>
@@ -168,7 +186,8 @@ export const ProvisionOfficerModal = ({ isOpen, onClose, onSuccess }) => {
           </div>
         </form>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 

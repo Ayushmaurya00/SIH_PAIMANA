@@ -1,5 +1,5 @@
 import React from 'react';
-import { UserCheck, UserX, Shield, Briefcase, Eye } from 'lucide-react';
+import { UserCheck, UserX, Shield, Briefcase } from 'lucide-react';
 
 export const PersonnelRosterTable = ({
   users = [],
@@ -16,16 +16,10 @@ export const PersonnelRosterTable = ({
           classes: 'bg-indigo-50 text-indigo-700 border-indigo-200',
           icon: Shield,
         };
-      case 'auditor':
-        return {
-          label: 'Read-Only Auditor',
-          classes: 'bg-slate-100 text-slate-700 border-slate-300',
-          icon: Eye,
-        };
-      case 'nodal_officer':
+      case 'employee':
       default:
         return {
-          label: 'Nodal Desk Officer',
+          label: 'Operations Employee',
           classes: 'bg-emerald-50 text-emerald-700 border-emerald-200',
           icon: Briefcase,
         };

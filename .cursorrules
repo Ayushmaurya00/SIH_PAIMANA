@@ -87,3 +87,5 @@ paimana-ai/
    - If a local LLM is unreachable or Ollama is not running, fall back cleanly to rule-based templated explanations.
 4. **Performance**: Ensure data transformations and dashboard queries execute within `< 2s` for datasets up to 5,000 projects.
 5. **No Hardcoded Secrets / Absolute Local Paths**: Use relative paths or environment variables (`.env`).
+6. **Ponytail Minimalist Architecture**: Adhere to the Ponytail decision ladder in `.agents/rules/ponytail.md` (YAGNI, reuse existing utilities first, no speculative abstractions).
+7. **UI/UX Design Standards**: Adhere to `.agents/rules/ui-ux-design.md` for executive government aesthetics, comfortable sizing (`h-10`/`h-11`), and accessible controls.

@@ -147,7 +147,7 @@ def get_project_detail(project_id: str = Path(..., description="Project ID e.g. 
 
 
 @router.delete("/api/projects/{project_id}")
-def delete_project(project_id: str = Path(..., description="Project ID to remove"), user=Depends(require_role(["admin", "nodal_officer"]))):
+def delete_project(project_id: str = Path(..., description="Project ID to remove"), user=Depends(require_role(["admin", "employee"]))):
     conn = None
     try:
         conn = get_db()
