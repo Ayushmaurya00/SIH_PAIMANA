@@ -27,6 +27,7 @@ router = APIRouter(tags=["Authentication"])
 
 
 @router.post("/api/auth/login", response_model=AuthUserResponse)
+@router.post("/auth/login", response_model=AuthUserResponse, include_in_schema=False)
 async def login_officer(req: LoginRequest):
     """Authenticate an official monitoring officer with verified credentials."""
     conn = get_db()
@@ -63,6 +64,7 @@ async def login_officer(req: LoginRequest):
 
 
 @router.post("/api/auth/register", response_model=AuthUserResponse)
+@router.post("/auth/register", response_model=AuthUserResponse, include_in_schema=False)
 async def register_officer(req: RegisterRequest):
     """Register a new government officer credentials profile with hashed password."""
     conn = get_db()
@@ -116,12 +118,14 @@ async def register_officer(req: RegisterRequest):
 
 
 @router.get("/api/auth/me")
+@router.get("/auth/me", include_in_schema=False)
 async def get_current_user_profile(user=Depends(get_current_user)):
     """Return current authenticated user from JWT."""
     return user
 
 
 @router.get("/api/auth/profiles", response_model=List[Dict[str, Any]])
+@router.get("/auth/profiles", response_model=List[Dict[str, Any]], include_in_schema=False)
 async def get_demo_profiles():
     """List available preset administrative officer profiles for reference."""
     return [

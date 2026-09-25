@@ -1,10 +1,13 @@
 import axios from 'axios';
 
-export const API_BASE_URL =
+const rawBaseUrl =
   import.meta.env.VITE_API_BASE_URL ||
   (typeof window !== 'undefined' && window.location.hostname.includes('vercel.app')
     ? 'https://sih-paimana.onrender.com/api'
     : '/api');
+
+const trimmedBase = rawBaseUrl.trim().replace(/\/+$/, '');
+export const API_BASE_URL = trimmedBase.endsWith('/api') ? trimmedBase : `${trimmedBase}/api`;
 
 const api = axios.create({
   baseURL: API_BASE_URL,
