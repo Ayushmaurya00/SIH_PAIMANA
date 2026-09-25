@@ -8,10 +8,13 @@ import EmptyState from '../components/EmptyState';
 import { ExplorerFilters } from '../components/explorer/ExplorerFilters';
 import { ExplorerTable } from '../components/explorer/ExplorerTable';
 import { ExplorerPagination } from '../components/explorer/ExplorerPagination';
+import PurgeConfirmModal from '../components/explorer/PurgeConfirmModal';
 
 export const ExplorerPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [isImportOpen, setIsImportOpen] = useState(false);
+  const [isPurgeOpen, setIsPurgeOpen] = useState(false);
+  const [isPurging, setIsPurging] = useState(false);
 
   const [search, setSearch] = useState(searchParams.get('search') || '');
   const [ministry, setMinistry] = useState(searchParams.get('ministry') || 'All');
@@ -73,17 +76,18 @@ export const ExplorerPage = () => {
     }
   };
 
-  const handleDeleteAllProjects = async () => {
-    if (!window.confirm("⚠️ WARNING: Permanently delete ALL projects?")) return;
-    const confirmInput = window.prompt("Type 'DELETE' to confirm:")?.trim().toUpperCase();
-    if (confirmInput !== 'DELETE' && confirmInput !== 'DELETE ALL') return;
+  const handleConfirmPurge = async () => {
     try {
+      setIsPurging(true);
       await clearAllProjects();
       setProjects([]);
       setTotal(0);
-      alert("All projects purged successfully.");
+      setIsPurgeOpen(false);
+      alert("All projects and telemetry purged successfully.");
     } catch (err) {
       alert(`Failed to purge projects: ${err?.response?.data?.detail || err?.response?.data?.message || err?.message}`);
+    } finally {
+      setIsPurging(false);
     }
   };
 
@@ -99,15 +103,15 @@ export const ExplorerPage = () => {
           </h1>
         </div>
         <div className="flex items-center gap-2 flex-wrap">
-          <button onClick={() => setIsImportOpen(true)} aria-label="Import Flash Report or Telemetry" className="btn-secondary text-xs flex items-center gap-1.5">
+          <button onClick={() => setIsImportOpen(true)} aria-label="Import Flash Report or Telemetry" className="btn-secondary text-xs flex items-center gap-1.5 cursor-pointer">
             <Upload className="w-3.5 h-3.5 text-primary-sovereign" aria-hidden="true" />
             <span>Import Report</span>
           </button>
-          <button onClick={() => window.open(getRiskReportExportUrl(), '_blank')} aria-label="Export Project Risk Report CSV" className="btn-secondary text-xs flex items-center gap-1.5">
+          <button onClick={() => window.open(getRiskReportExportUrl(), '_blank')} aria-label="Export Project Risk Report CSV" className="btn-secondary text-xs flex items-center gap-1.5 cursor-pointer">
             <Download className="w-3.5 h-3.5" aria-hidden="true" />
             <span>Export CSV</span>
           </button>
-          <button onClick={handleDeleteAllProjects} aria-label="Purge all project records" className="px-2.5 py-1.5 rounded-lg text-xs font-semibold text-status-critical bg-red-50 hover:bg-status-critical hover:text-white border border-red-200 transition-colors flex items-center gap-1.5">
+          <button onClick={() => setIsPurgeOpen(true)} aria-label="Purge all project records" className="px-2.5 py-1.5 rounded-lg text-xs font-semibold text-status-critical bg-red-50 hover:bg-status-critical hover:text-white border border-red-200 transition-colors flex items-center gap-1.5 cursor-pointer">
             <Trash2 className="w-3.5 h-3.5" aria-hidden="true" />
             <span>Purge All</span>
           </button>
@@ -136,6 +140,7 @@ export const ExplorerPage = () => {
       )}
 
       <ImportModal isOpen={isImportOpen} onClose={() => setIsImportOpen(false)} onImportSuccess={() => window.location.reload()} />
+      <PurgeConfirmModal isOpen={isPurgeOpen} onClose={() => setIsPurgeOpen(false)} onConfirm={handleConfirmPurge} loading={isPurging} />
     </div>
   );
 };
