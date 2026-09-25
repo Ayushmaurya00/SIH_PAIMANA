@@ -14,25 +14,25 @@ export const SignUpForm = ({
 }) => {
   return (
     <div className="w-full">
-      <h1 className="text-slate-900 text-3xl font-bold mb-8">
+      <h1 className="text-slate-900 text-2xl font-bold mb-4">
         Create Account
       </h1>
 
       {errorMessage && (
-        <div className="mb-6 p-3 rounded-md bg-red-50 border border-red-200 text-red-700 text-sm font-medium">
+        <div className="mb-3 p-2 rounded-md bg-red-50 border border-red-200 text-red-700 text-xs font-medium">
           {errorMessage}
         </div>
       )}
 
       {successMessage && (
-        <div className="mb-6 p-3 rounded-md bg-emerald-50 border border-emerald-200 text-emerald-700 text-sm font-medium">
+        <div className="mb-3 p-2 rounded-md bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-medium">
           {successMessage}
         </div>
       )}
 
-      <form onSubmit={handleSignUp} className="space-y-6">
+      <form onSubmit={handleSignUp} className="space-y-3.5">
         <div>
-          <label htmlFor="reg-name" className="mb-2 text-slate-900 font-medium text-sm inline-block">
+          <label htmlFor="reg-name" className="mb-1 text-slate-800 font-semibold text-xs inline-block">
             Full Name & Rank
           </label>
           <input
@@ -43,12 +43,12 @@ export const SignUpForm = ({
             onChange={(e) => setFullName(e.target.value)}
             placeholder="e.g. Dr. Rajesh Sharma, IAS"
             required
-            className="px-3 py-2.5 text-sm text-slate-900 rounded-md bg-white w-full border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition-all"
+            className="px-3 py-2 text-xs text-slate-900 rounded-md bg-white w-full border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition-all"
           />
         </div>
 
         <div>
-          <label htmlFor="reg-email" className="mb-2 text-slate-900 font-medium text-sm inline-block">
+          <label htmlFor="reg-email" className="mb-1 text-slate-800 font-semibold text-xs inline-block">
             Official Email / Username
           </label>
           <input
@@ -60,12 +60,12 @@ export const SignUpForm = ({
             onChange={(e) => setRegEmail(e.target.value)}
             placeholder="employee@company.com or employee_id"
             required
-            className="px-3 py-2.5 text-sm text-slate-900 rounded-md bg-white w-full border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition-all"
+            className="px-3 py-2 text-xs text-slate-900 rounded-md bg-white w-full border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition-all"
           />
         </div>
 
         <div>
-          <label htmlFor="reg-password" className="mb-2 text-slate-900 font-medium text-sm inline-block">
+          <label htmlFor="reg-password" className="mb-1 text-slate-800 font-semibold text-xs inline-block">
             Password
           </label>
           <input
@@ -76,14 +76,14 @@ export const SignUpForm = ({
             onChange={(e) => setRegPassword(e.target.value)}
             placeholder="••••••••"
             required
-            className="px-3 py-2.5 text-sm text-slate-900 rounded-md bg-white w-full border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition-all"
+            className="px-3 py-2 text-xs text-slate-900 rounded-md bg-white w-full border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition-all"
           />
         </div>
 
         <button
           type="submit"
           disabled={loading}
-          className="w-full py-2.5 px-3.5 text-sm rounded-md font-semibold cursor-pointer text-white border border-blue-600 bg-blue-600 hover:bg-blue-700 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 disabled:opacity-50"
+          className="w-full py-2 px-3 text-xs rounded-md font-bold cursor-pointer text-white border border-blue-600 bg-blue-600 hover:bg-blue-700 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 disabled:opacity-50 mt-1"
         >
           {loading ? 'Creating account...' : 'Create Account'}
         </button>

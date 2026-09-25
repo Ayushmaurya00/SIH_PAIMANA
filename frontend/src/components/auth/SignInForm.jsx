@@ -24,31 +24,31 @@ export const SignInForm = ({
 
   return (
     <div className="w-full">
-      <h1 className="text-slate-900 text-3xl font-bold mb-8">
+      <h1 className="text-slate-900 text-2xl font-bold mb-4">
         Sign in
       </h1>
 
       {errorMessage && (
-        <div className="mb-6 p-3 rounded-md bg-red-50 border border-red-200 text-red-700 text-sm font-medium">
+        <div className="mb-3 p-2 rounded-md bg-red-50 border border-red-200 text-red-700 text-xs font-medium">
           {errorMessage}
         </div>
       )}
 
       {successMessage && (
-        <div className="mb-6 p-3 rounded-md bg-emerald-50 border border-emerald-200 text-emerald-700 text-sm font-medium">
+        <div className="mb-3 p-2 rounded-md bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-medium">
           {successMessage}
         </div>
       )}
 
       {infoMessage && (
-        <div className="mb-6 p-3 rounded-md bg-blue-50 border border-blue-200 text-blue-700 text-sm font-medium">
+        <div className="mb-3 p-2 rounded-md bg-blue-50 border border-blue-200 text-blue-700 text-xs font-medium">
           {infoMessage}
         </div>
       )}
 
-      <form onSubmit={handleSignIn} className="space-y-6">
+      <form onSubmit={handleSignIn} className="space-y-3.5">
         <div>
-          <label htmlFor="email" className="mb-2 text-slate-900 font-medium text-sm inline-block">
+          <label htmlFor="email" className="mb-1 text-slate-800 font-semibold text-xs inline-block">
             Official Email / Username
           </label>
           <input
@@ -58,14 +58,14 @@ export const SignInForm = ({
             autoComplete="username"
             value={email}
             onChange={(e) => { setEmail(e.target.value); setInfoMessage(''); }}
-            placeholder="employee@company.com or employee_id"
+            placeholder="admin@mospi.gov.in or employee_id"
             required
-            className="px-3 py-2.5 text-sm text-slate-900 rounded-md bg-white w-full border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition-all"
+            className="px-3 py-2 text-xs text-slate-900 rounded-md bg-white w-full border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition-all"
           />
         </div>
 
         <div>
-          <label htmlFor="password" className="mb-2 text-slate-900 font-medium text-sm inline-block">
+          <label htmlFor="password" className="mb-1 text-slate-800 font-semibold text-xs inline-block">
             Password
           </label>
           <input
@@ -76,11 +76,11 @@ export const SignInForm = ({
             onChange={(e) => { setPassword(e.target.value); setInfoMessage(''); }}
             placeholder="••••••••"
             required
-            className="px-3 py-2.5 text-sm text-slate-900 rounded-md bg-white w-full border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition-all"
+            className="px-3 py-2 text-xs text-slate-900 rounded-md bg-white w-full border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition-all"
           />
         </div>
 
-        <div className="flex items-center justify-between flex-wrap gap-2">
+        <div className="flex items-center justify-between flex-wrap gap-2 pt-0.5">
           <label className="flex items-center cursor-pointer select-none">
             <input
               id="remember"
@@ -88,9 +88,9 @@ export const SignInForm = ({
               type="checkbox"
               checked={rememberMe}
               onChange={(e) => setRememberMe(e.target.checked)}
-              className="h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-600 cursor-pointer"
+              className="h-3.5 w-3.5 rounded border-slate-300 text-blue-600 focus:ring-blue-600 cursor-pointer"
             />
-            <span className="ml-2.5 text-sm text-slate-700">
+            <span className="ml-2 text-xs text-slate-600">
               Remember me
             </span>
           </label>
@@ -98,7 +98,7 @@ export const SignInForm = ({
           <button
             type="button"
             onClick={handleForgotPassword}
-            className="text-sm font-medium text-blue-700 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded bg-transparent p-0 border-none cursor-pointer"
+            className="text-xs font-medium text-blue-700 hover:underline focus:outline-none rounded bg-transparent p-0 border-none cursor-pointer"
           >
             Forgot password?
           </button>
@@ -107,19 +107,11 @@ export const SignInForm = ({
         <button
           type="submit"
           disabled={loading}
-          className="w-full py-2.5 px-3.5 text-sm rounded-md font-semibold cursor-pointer text-white border border-blue-600 bg-blue-600 hover:bg-blue-700 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 disabled:opacity-50"
+          className="w-full py-2 px-3 text-xs rounded-md font-bold cursor-pointer text-white border border-blue-600 bg-blue-600 hover:bg-blue-700 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 disabled:opacity-50 mt-1"
         >
-          {loading ? 'Signing in...' : 'Sign in'}
+          {loading ? 'Signing in...' : 'Sign In'}
         </button>
       </form>
-
-      {/* <div className="mt-8 pt-6 border-t border-slate-100 text-xs text-slate-500"> */}
-      {/* <p className="font-semibold text-slate-700 mb-1.5">Official Credentials Reference:</p>
-      <div className="space-y-1 text-[11px] text-slate-600 bg-slate-50 p-2.5 rounded border border-slate-200">
-        <div><span className="font-medium text-slate-900">Admin:</span> admin@mospi.gov.in / Admin@MoSPI2026!</div>
-        <div><span className="font-medium text-slate-900">Officer:</span> rajesh.sharma@mospi.gov.in / Paimana@123</div>
-      </div> */}
-      {/* </div> */}
     </div>
   );
 };

@@ -10,18 +10,18 @@ export const AuthHero = ({ mode, setMode, onClearMessages }) => {
 
   return (
     <div>
-      <h2 className="text-4xl font-bold text-slate-900 !leading-tight lg:text-5xl">
+      <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 !leading-tight">
         {isSignIn
           ? 'Central Infrastructure Monitoring & Decision Support'
           : 'Register Monitoring Officer Credentials'}
       </h2>
-      <p className="text-base mt-6 text-slate-600 leading-relaxed">
+      <p className="text-xs sm:text-sm mt-3 text-slate-600 leading-relaxed">
         {isSignIn
           ? 'Access real-time MoSPI Flash Report telemetry, physical vs. financial S-curves, and machine learning early-warning risk analytics across ₹35.38 Lakh Crore in Central Sector infrastructure projects.'
           : 'Create verified administrative credentials to review project dossiers, milestone slippages, and prescriptive delay mitigation playbooks.'}
       </p>
 
-      <div className="text-sm mt-6 text-slate-900 lg:mt-12">
+      <div className="text-xs mt-4 text-slate-900 lg:mt-6">
         {isSignIn ? (
           <>
             Don't have an account{' '}
