@@ -65,9 +65,9 @@ export const AdminPanel = () => {
   });
 
   return (
-    <div className="p-6 space-y-6 max-w-7xl mx-auto animate-fade-in text-slate-800">
+    <div className="p-3 sm:p-6 space-y-4 sm:space-y-6 max-w-7xl mx-auto animate-fade-in text-slate-800">
       {/* Header Bar */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4 border-b border-slate-200 pb-3 sm:pb-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
             <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">
@@ -75,8 +75,8 @@ export const AdminPanel = () => {
             </span>
             <span className="text-xs text-slate-500 font-medium">RBAC Security Tier</span>
           </div>
-          <h1 className="text-xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
-            <Shield className="w-5 h-5 text-indigo-700" aria-hidden="true" />
+          <h1 className="text-lg sm:text-xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
+            <Shield className="w-5 h-5 text-indigo-700 shrink-0" aria-hidden="true" />
             <span>MoSPI Central Registry | Sovereign Administration Console</span>
           </h1>
         </div>

@@ -62,7 +62,7 @@ export const OverviewPage = () => {
   const totalProjects = data.total_projects !== undefined ? data.total_projects : 1;
 
   return (
-    <div className="p-6 space-y-6 max-w-7xl mx-auto animate-fade-in">
+    <div className="p-3 sm:p-6 space-y-4 sm:space-y-6 max-w-7xl mx-auto animate-fade-in">
       <OverviewHeader />
 
       {/* V.3 Demo Segment: Exclusively rendered when logged in with v.3 demo email */}

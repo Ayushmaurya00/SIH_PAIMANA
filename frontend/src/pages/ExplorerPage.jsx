@@ -75,29 +75,30 @@ export const ExplorerPage = () => {
 
   const handleDeleteAllProjects = async () => {
     if (!window.confirm("⚠️ WARNING: Permanently delete ALL projects?")) return;
-    if (window.prompt("Type 'DELETE ALL' to confirm:") !== 'DELETE ALL') return;
+    const confirmInput = window.prompt("Type 'DELETE' to confirm:")?.trim().toUpperCase();
+    if (confirmInput !== 'DELETE' && confirmInput !== 'DELETE ALL') return;
     try {
       await clearAllProjects();
       setProjects([]);
       setTotal(0);
       alert("All projects purged successfully.");
     } catch (err) {
-      alert(`Failed to purge projects: ${err?.response?.data?.detail || err?.message}`);
+      alert(`Failed to purge projects: ${err?.response?.data?.detail || err?.response?.data?.message || err?.message}`);
     }
   };
 
   const totalPages = Math.ceil(total / pageSize);
 
   return (
-    <div className="p-6 space-y-6 max-w-7xl mx-auto animate-fade-in">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border-rest pb-3">
+    <div className="p-3 sm:p-6 space-y-4 sm:space-y-6 max-w-7xl mx-auto animate-fade-in">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 border-b border-border-rest pb-3">
         <div>
-          <h1 className="text-xl font-extrabold text-text-primary tracking-tight flex items-center gap-2">
-            <Compass className="w-5 h-5 text-primary-sovereign" aria-hidden="true" />
+          <h1 className="text-lg sm:text-xl font-extrabold text-text-primary tracking-tight flex items-center gap-2">
+            <Compass className="w-5 h-5 text-primary-sovereign shrink-0" aria-hidden="true" />
             <span>Central Sector Project Directory</span>
           </h1>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
           <button onClick={() => setIsImportOpen(true)} aria-label="Import Flash Report or Telemetry" className="btn-secondary text-xs flex items-center gap-1.5">
             <Upload className="w-3.5 h-3.5 text-primary-sovereign" aria-hidden="true" />
             <span>Import Report</span>

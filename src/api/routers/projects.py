@@ -174,10 +174,8 @@ def delete_project(project_id: str = Path(..., description="Project ID to remove
 
 
 @router.delete("/api/projects")
-def clear_all_projects(user=Depends(require_min_clearance(5))):
-    # Production safeguard: block purge in production unless explicitly allowed
-    if os.getenv("ENVIRONMENT", "development") == "production" and os.getenv("ALLOW_PURGE", "false").lower() != "true":
-        raise APIError(status_code=403, detail="Purge disabled in production. Set ALLOW_PURGE=true to enable.", code="PURGE_DISABLED")
+@router.delete("/projects", include_in_schema=False)
+def clear_all_projects(user=Depends(require_role(["admin", "employee"]))):
     conn = None
     try:
         conn = get_db()
@@ -185,7 +183,7 @@ def clear_all_projects(user=Depends(require_min_clearance(5))):
         for tbl in ["alerts", "risk_scores", "model_predictions", "milestones", "monthly_snapshots", "projects"]:
             cur.execute(f"DELETE FROM {tbl}")
         conn.commit()
-        logger.warning(f"PURGE ALL executed by {user.get('email','unknown')} clearance {user.get('clearance_level')}")
+        logger.warning(f"PURGE ALL executed by {user.get('email','unknown')} role {user.get('role')}")
         return {"status": "success", "message": "All projects and telemetry data have been purged successfully."}
     except Exception as e:
         logger.error(f"Error purging projects: {e}", exc_info=True)

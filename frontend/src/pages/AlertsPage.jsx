@@ -92,16 +92,16 @@ export const AlertsPage = () => {
   };
 
   return (
-    <div className="p-6 space-y-6 max-w-7xl mx-auto animate-fade-in">
+    <div className="p-3 sm:p-6 space-y-4 sm:space-y-6 max-w-7xl mx-auto animate-fade-in">
       {/* Header section with portfolio summary */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border-rest pb-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 border-b border-border-rest pb-3">
         <div>
-          <h1 className="text-xl font-extrabold text-text-primary tracking-tight flex items-center gap-2">
-            <ShieldAlert className="w-5 h-5 text-status-critical" aria-hidden="true" />
+          <h1 className="text-lg sm:text-xl font-extrabold text-text-primary tracking-tight flex items-center gap-2">
+            <ShieldAlert className="w-5 h-5 text-status-critical shrink-0" aria-hidden="true" />
             <span>Early Warning & Escalation Triage</span>
           </h1>
         </div>
-        <div className="flex items-center gap-2 text-xs">
+        <div className="flex items-center gap-2 text-xs flex-wrap">
           <span className="px-2.5 py-1 rounded-md bg-surface-elevated border border-red-200 text-status-critical font-mono font-semibold">
             {highCount} Critical Escalations
           </span>

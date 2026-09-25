@@ -66,7 +66,7 @@ export const ProjectDetailPage = ({ onOpenAssistantWithContext }) => {
   const expPct = approved > 0 ? ((expenditure / approved) * 100).toFixed(1) : '0.0';
 
   return (
-    <div className="p-6 space-y-6 max-w-7xl mx-auto animate-fade-in">
+    <div className="p-3 sm:p-6 space-y-4 sm:space-y-6 max-w-7xl mx-auto animate-fade-in">
       <ProjectHeader project={project} costDelta={costDelta} costDeltaPct={costDeltaPct} handleDelete={handleDelete} onOpenAssistantWithContext={onOpenAssistantWithContext} />
       <PredictiveTelemetry project={project} costDelta={costDelta} costDeltaPct={costDeltaPct} expPct={expPct} />
 

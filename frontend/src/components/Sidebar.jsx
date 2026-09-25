@@ -76,7 +76,7 @@ export const Sidebar = () => {
 
   return (
     <aside
-      className={`border-r border-border-rest bg-surface-elevated flex flex-col justify-between shrink-0 min-h-[calc(100vh-56px)] z-30 transition-all duration-300 ease-in-out ${isCollapsed ? 'w-16 p-2' : 'w-60 p-4'
+      className={`hidden md:flex border-r border-border-rest bg-surface-elevated flex-col justify-between shrink-0 min-h-[calc(100vh-56px)] z-30 transition-all duration-300 ease-in-out ${isCollapsed ? 'w-16 p-2' : 'w-60 p-4'
         }`}
     >
       <div className="space-y-4">

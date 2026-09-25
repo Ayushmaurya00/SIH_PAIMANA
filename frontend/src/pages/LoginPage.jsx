@@ -106,11 +106,11 @@ export const LoginPage = () => {
   }, []);
 
   return (
-    <div className="auth-viewport-root h-[100dvh] max-h-[100dvh] overflow-hidden bg-white text-slate-900 flex flex-col justify-between font-sans">
+    <div className="auth-viewport-root min-h-[100dvh] bg-white text-slate-900 flex flex-col justify-between font-sans">
       <AuthHeader />
 
-      <main className="flex-1 flex flex-col items-center justify-center px-4 md:px-8 py-2 overflow-y-auto lg:overflow-hidden">
-        <div className="grid items-center gap-8 lg:gap-12 max-w-lg lg:grid-cols-2 lg:max-w-5xl w-full my-auto">
+      <main className="flex-1 flex flex-col items-center justify-center px-4 md:px-8 py-4 overflow-y-auto">
+        <div className="grid items-center gap-6 lg:gap-12 max-w-lg lg:grid-cols-2 lg:max-w-5xl w-full my-auto">
           <AuthHero
             mode={mode}
             setMode={setMode}
