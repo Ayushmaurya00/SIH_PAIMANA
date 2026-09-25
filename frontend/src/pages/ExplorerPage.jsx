@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Compass, Upload, Download, Trash2 } from 'lucide-react';
-import { getProjects, getFilterOptions, deleteProject, clearAllProjects, getRiskReportExportUrl } from '../api/client';
-import ImportModal from '../components/ImportModal';
+import { Compass, Trash2 } from 'lucide-react';
+import { getProjects, getFilterOptions, deleteProject, clearAllProjects } from '../api/client';
 import LoadingSkeleton from '../components/LoadingSkeleton';
 import EmptyState from '../components/EmptyState';
 import { ExplorerFilters } from '../components/explorer/ExplorerFilters';
@@ -13,7 +12,6 @@ import StatusModal from '../components/StatusModal';
 
 export const ExplorerPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [isImportOpen, setIsImportOpen] = useState(false);
   const [isPurgeOpen, setIsPurgeOpen] = useState(false);
   const [isPurging, setIsPurging] = useState(false);
   const [statusModal, setStatusModal] = useState({ isOpen: false, type: 'success', title: '', message: '' });
@@ -126,14 +124,6 @@ export const ExplorerPage = () => {
           </h1>
         </div>
         <div className="flex items-center gap-2 flex-wrap">
-          <button onClick={() => setIsImportOpen(true)} aria-label="Import Flash Report or Telemetry" className="btn-secondary text-xs flex items-center gap-1.5 cursor-pointer">
-            <Upload className="w-3.5 h-3.5 text-primary-sovereign" aria-hidden="true" />
-            <span>Import Report</span>
-          </button>
-          <button onClick={() => window.open(getRiskReportExportUrl(), '_blank')} aria-label="Export Project Risk Report CSV" className="btn-secondary text-xs flex items-center gap-1.5 cursor-pointer">
-            <Download className="w-3.5 h-3.5" aria-hidden="true" />
-            <span>Export CSV</span>
-          </button>
           <button onClick={() => setIsPurgeOpen(true)} aria-label="Purge all project records" className="px-2.5 py-1.5 rounded-lg text-xs font-semibold text-status-critical bg-red-50 hover:bg-status-critical hover:text-white border border-red-200 transition-colors flex items-center gap-1.5 cursor-pointer">
             <Trash2 className="w-3.5 h-3.5" aria-hidden="true" />
             <span>Purge All</span>
@@ -162,7 +152,6 @@ export const ExplorerPage = () => {
         </>
       )}
 
-      <ImportModal isOpen={isImportOpen} onClose={() => setIsImportOpen(false)} onImportSuccess={() => window.location.reload()} />
       <PurgeConfirmModal isOpen={isPurgeOpen} onClose={() => setIsPurgeOpen(false)} onConfirm={handleConfirmPurge} loading={isPurging} />
       <StatusModal
         isOpen={statusModal.isOpen}
