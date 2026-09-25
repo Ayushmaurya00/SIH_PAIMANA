@@ -58,7 +58,7 @@ export const SignUpForm = ({
             autoComplete="username"
             value={regEmail}
             onChange={(e) => setRegEmail(e.target.value)}
-            placeholder="officer@mospi.gov.in"
+            placeholder="employee@company.com or employee_id"
             required
             className="px-3 py-2.5 text-sm text-slate-900 rounded-md bg-white w-full border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition-all"
           />

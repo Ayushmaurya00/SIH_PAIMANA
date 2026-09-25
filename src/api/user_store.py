@@ -88,7 +88,20 @@ PRESET_OFFICERS = [
         "department_code": "V3-SANDBOX-LAB",
         "clearance_level": "Level-Special (Simulation)",
         "avatar": "V3",
-    }
+    },
+    {
+        "id": "emp-001",
+        "email": "employee@company.com",
+        "username": "employee_id",
+        "password": "Employee@123",
+        "full_name": "Project Operations Associate",
+        "designation": "Project Operations Employee",
+        "ministry": "Infrastructure Planning & Monitoring Division",
+        "role": "Review Authority",
+        "department_code": "PMO-OPERATIONS",
+        "clearance_level": "Level-3 (General Access)",
+        "avatar": "EM",
+    },
 ]
 
 
