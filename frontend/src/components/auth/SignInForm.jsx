@@ -24,9 +24,39 @@ export const SignInForm = ({
 
   return (
     <div className="w-full">
-      <h1 className="text-slate-900 text-2xl font-bold mb-4">
+      <h1 className="text-slate-900 text-2xl font-bold mb-3">
         Sign in
       </h1>
+
+      <div className="mb-3.5 p-2 rounded-lg bg-slate-50 border border-slate-200">
+        <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1.5">
+          Quick Demo Credentials
+        </div>
+        <div className="flex gap-2">
+          <button
+            type="button"
+            onClick={() => {
+              setEmail('admin@mospi.gov.in');
+              setPassword('Admin@MoSPI2026');
+              setInfoMessage('Filled MoSPI Registry Official (Admin) credentials.');
+            }}
+            className="flex-1 py-1 px-2 text-xs font-semibold rounded bg-white hover:bg-slate-100 border border-slate-300 text-slate-800 transition-colors shadow-xs text-center cursor-pointer"
+          >
+            👑 Admin
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setEmail('employee@company.com');
+              setPassword('Employee@MoSPI2026');
+              setInfoMessage('Filled Operations Employee credentials.');
+            }}
+            className="flex-1 py-1 px-2 text-xs font-semibold rounded bg-white hover:bg-slate-100 border border-slate-300 text-slate-800 transition-colors shadow-xs text-center cursor-pointer"
+          >
+            👤 Employee
+          </button>
+        </div>
+      </div>
 
       {errorMessage && (
         <div className="mb-3 p-2 rounded-md bg-red-50 border border-red-200 text-red-700 text-xs font-medium">
