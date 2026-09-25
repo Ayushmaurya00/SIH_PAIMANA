@@ -10,8 +10,8 @@ export const SegmentedCodeInput = ({
     <div className="relative">
       {/* Visual 6-box Segmented Display */}
       <div
-        className="grid grid-cols-6 gap-2 cursor-text select-none"
-        onClick={() => inputRef.current?.focus()}
+        className="grid grid-cols-6 gap-2 select-none pointer-events-none"
+        aria-hidden="true"
       >
         {[0, 1, 2, 3, 4, 5].map((idx) => {
           const char = userInput[idx] || '';
@@ -39,7 +39,7 @@ export const SegmentedCodeInput = ({
         })}
       </div>
 
-      {/* Accessible native input element capturing keystrokes */}
+      {/* Accessible native input element covering the entire segmented container */}
       <input
         ref={inputRef}
         id="purge-input"
@@ -49,7 +49,7 @@ export const SegmentedCodeInput = ({
         maxLength={6}
         value={userInput}
         onChange={onChange}
-        className="sr-only"
+        className="absolute inset-0 w-full h-full opacity-0 z-10 cursor-pointer text-transparent selection:bg-transparent focus:outline-none"
         aria-label="Enter 6-character security verification code"
       />
     </div>
