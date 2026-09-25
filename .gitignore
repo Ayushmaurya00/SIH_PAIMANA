@@ -34,6 +34,8 @@ ENV/
 # Database
 *.sqlite3
 *.db
+*.db-shm
+*.db-wal
 !paimana.db
 
 # Node / React
