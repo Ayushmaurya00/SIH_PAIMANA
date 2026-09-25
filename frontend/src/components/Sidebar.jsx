@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import {
   LayoutDashboard,
   Compass,
   AlertTriangle,
   FileCheck2,
-  User,
   ChevronLeft,
   ChevronRight
 } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
 
 const NAV_ITEMS = [
   {
@@ -39,7 +37,6 @@ const NAV_ITEMS = [
 ];
 
 export const Sidebar = () => {
-  const { user, isAuthenticated } = useAuth();
   const [isCollapsed, setIsCollapsed] = useState(() => {
     try {
       return localStorage.getItem('paimana_sidebar_collapsed') === 'true';
@@ -53,16 +50,15 @@ export const Sidebar = () => {
       const next = !prev;
       try {
         localStorage.setItem('paimana_sidebar_collapsed', String(next));
-      } catch {}
+      } catch { }
       return next;
     });
   };
 
   return (
     <aside
-      className={`border-r border-border-rest bg-surface-elevated flex flex-col justify-between shrink-0 min-h-[calc(100vh-56px)] z-30 transition-all duration-300 ease-in-out ${
-        isCollapsed ? 'w-16 p-2' : 'w-60 p-4'
-      }`}
+      className={`border-r border-border-rest bg-surface-elevated flex flex-col justify-between shrink-0 min-h-[calc(100vh-56px)] z-30 transition-all duration-300 ease-in-out ${isCollapsed ? 'w-16 p-2' : 'w-60 p-4'
+        }`}
     >
       <div className="space-y-4">
         {/* Header with Sideways Collapse Toggle */}
@@ -106,16 +102,14 @@ export const Sidebar = () => {
                 title={isCollapsed ? item.label : undefined}
                 className={({ isActive }) =>
                   isCollapsed
-                    ? `flex items-center justify-center p-2.5 rounded-lg text-xs font-semibold transition-colors relative ${
-                        isActive
-                          ? 'bg-surface-subtle text-text-primary border-l-2 border-primary-sovereign rounded-l-none'
-                          : 'text-text-secondary hover:text-text-primary hover:bg-surface-subtle'
-                      }`
-                    : `flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${
-                        isActive
-                          ? 'bg-surface-subtle text-text-primary border-l-2 border-primary-sovereign rounded-l-none'
-                          : 'text-text-secondary hover:text-text-primary hover:bg-surface-subtle'
-                      }`
+                    ? `flex items-center justify-center p-2.5 rounded-lg text-xs font-semibold transition-colors relative ${isActive
+                      ? 'bg-surface-subtle text-text-primary border-l-2 border-primary-sovereign rounded-l-none'
+                      : 'text-text-secondary hover:text-text-primary hover:bg-surface-subtle'
+                    }`
+                    : `flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${isActive
+                      ? 'bg-surface-subtle text-text-primary border-l-2 border-primary-sovereign rounded-l-none'
+                      : 'text-text-secondary hover:text-text-primary hover:bg-surface-subtle'
+                    }`
                 }
               >
                 <div className={`flex items-center ${isCollapsed ? 'justify-center' : 'gap-2.5'}`}>
@@ -125,11 +119,10 @@ export const Sidebar = () => {
 
                 {!isCollapsed && item.badge && (
                   <span
-                    className={`text-[10px] font-mono font-medium px-1.5 py-0.2 rounded ${
-                      item.badge === 'Urgent'
+                    className={`text-[10px] font-mono font-medium px-1.5 py-0.2 rounded ${item.badge === 'Urgent'
                         ? 'bg-surface-elevated text-status-critical border border-status-critical/30'
                         : 'bg-surface-subtle text-text-secondary border border-border-rest'
-                    }`}
+                      }`}
                   >
                     {item.badge}
                   </span>
@@ -145,60 +138,6 @@ export const Sidebar = () => {
             );
           })}
         </nav>
-      </div>
-
-      {/* Officer Profile Badge (without logout button) */}
-      <div className="pt-3 border-t border-border-rest/60">
-        {isAuthenticated && user ? (
-          isCollapsed ? (
-            <div
-              className="flex justify-center"
-              title={`${user.name} (${user.role})`}
-            >
-              <div
-                className="w-8 h-8 rounded-lg bg-primary-sovereign text-amber-400 text-xs font-black flex items-center justify-center shrink-0 shadow-sm"
-                aria-hidden="true"
-              >
-                {user.avatar || 'GO'}
-              </div>
-            </div>
-          ) : (
-            <div className="p-2.5 rounded-xl bg-surface-subtle border border-border-rest">
-              <div className="flex items-center gap-2.5">
-                <div
-                  className="w-7 h-7 rounded-lg bg-primary-sovereign text-amber-400 text-[10px] font-black flex items-center justify-center shrink-0"
-                  aria-hidden="true"
-                >
-                  {user.avatar || 'GO'}
-                </div>
-                <div className="min-w-0 flex-1">
-                  <p className="text-xs font-bold text-text-primary truncate">
-                    {user.name.split(',')[0]}
-                  </p>
-                  <p className="text-[10px] text-slate-600 truncate">{user.role}</p>
-                </div>
-              </div>
-            </div>
-          )
-        ) : (
-          isCollapsed ? (
-            <Link
-              to="/login"
-              title="Officer Sign In"
-              className="w-8 h-8 mx-auto flex items-center justify-center rounded-lg bg-primary-sovereign text-white shadow-sm hover:bg-blue-900 transition-colors"
-            >
-              <User className="w-4 h-4" />
-            </Link>
-          ) : (
-            <Link
-              to="/login"
-              className="w-full flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg bg-primary-sovereign text-white text-xs font-bold shadow-sm hover:bg-blue-900 transition-colors"
-            >
-              <User className="w-3.5 h-3.5" />
-              <span>Officer Sign In</span>
-            </Link>
-          )
-        )}
       </div>
     </aside>
   );

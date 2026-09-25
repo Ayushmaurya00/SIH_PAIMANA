@@ -8,7 +8,6 @@ import {
   Upload,
   Printer,
   LogOut,
-  User,
   LogIn,
   Building,
   KeyRound
@@ -64,20 +63,36 @@ export const Header = ({ onOpenAssistant, onOpenImport, alertCount = 0 }) => {
           {isAuthenticated && user ? (
             <div className="relative" ref={dropdownRef}>
               <button
+                type="button"
                 onClick={() => setIsProfileOpen(!isProfileOpen)}
-                className="hidden sm:flex items-center gap-2 px-2.5 py-1 rounded-md bg-surface-subtle hover:bg-slate-150 border border-border-rest text-xs text-text-secondary font-medium transition-colors"
+                className={`hidden sm:flex items-center gap-2.5 pl-1.5 pr-3 py-1 rounded-full border transition-all duration-200 cursor-pointer group select-none ${
+                  isProfileOpen
+                    ? 'bg-blue-50/80 border-blue-300 shadow-xs ring-2 ring-blue-500/20'
+                    : 'bg-white hover:bg-slate-50 border-slate-200/90 shadow-2xs hover:shadow-xs hover:border-slate-300'
+                }`}
                 aria-label="Official Session Profile"
                 aria-expanded={isProfileOpen}
               >
-                <div className="w-5 h-5 rounded-full bg-primary-sovereign text-amber-400 text-[10px] font-bold flex items-center justify-center" aria-hidden="true">
-                  {user.avatar || 'GO'}
+                <div className="relative shrink-0">
+                  <div className="w-7 h-7 rounded-full bg-gradient-to-br from-primary-sovereign via-blue-900 to-indigo-950 text-amber-300 text-[11px] font-bold flex items-center justify-center shadow-xs ring-1.5 ring-white">
+                    {user.avatar || 'GO'}
+                  </div>
+                  <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white" title="Active session" />
                 </div>
-                <div className="text-left leading-tight max-w-[140px] truncate">
-                  <span className="font-semibold text-text-primary block truncate">
+                <div className="text-left leading-tight max-w-[130px]">
+                  <span className="text-[12px] font-semibold text-slate-800 group-hover:text-primary-sovereign block truncate transition-colors">
                     {user.name.split(',')[0]}
                   </span>
+                  <span className="text-[10px] text-slate-500 block truncate font-medium">
+                    {user.role || 'Officer'}
+                  </span>
                 </div>
-                <ChevronDown className={`w-3 h-3 text-text-tertiary transition-transform ${isProfileOpen ? 'rotate-180' : ''}`} aria-hidden="true" />
+                <ChevronDown
+                  className={`w-3.5 h-3.5 text-slate-400 group-hover:text-slate-600 transition-transform duration-200 shrink-0 ${
+                    isProfileOpen ? 'rotate-180 text-blue-600' : ''
+                  }`}
+                  aria-hidden="true"
+                />
               </button>
 
               {/* Profile Dropdown Menu */}
@@ -130,9 +145,11 @@ export const Header = ({ onOpenAssistant, onOpenImport, alertCount = 0 }) => {
           ) : (
             <Link
               to="/login"
-              className="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-md bg-surface-subtle hover:bg-slate-100 border border-border-rest text-xs text-text-primary font-semibold transition-colors"
+              className="hidden sm:flex items-center gap-2 pl-1.5 pr-3 py-1 rounded-full bg-white hover:bg-slate-50 border border-slate-200/90 shadow-2xs hover:shadow-xs hover:border-slate-300 text-xs text-slate-700 font-semibold transition-all duration-200 group"
             >
-              <LogIn className="w-3.5 h-3.5 text-primary-sovereign" aria-hidden="true" />
+              <div className="w-6 h-6 rounded-full bg-slate-100 group-hover:bg-blue-50 text-slate-600 group-hover:text-primary-sovereign flex items-center justify-center transition-colors">
+                <LogIn className="w-3.5 h-3.5" aria-hidden="true" />
+              </div>
               <span>Officer Sign In</span>
             </Link>
           )}
