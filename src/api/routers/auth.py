@@ -42,22 +42,41 @@ async def login_officer(req: LoginRequest):
             detail="Account not found. Please verify your email/username or register."
         )
 
-    if not verify_password(req.password, user["password_hash"]):
+    stored_hash = user.get("hashed_password") or user.get("password_hash")
+    if not stored_hash or not verify_password(req.password, stored_hash):
         raise HTTPException(
             status_code=401,
             detail="Incorrect password. Please verify credentials."
         )
 
+    if not user.get("is_active", 1):
+        raise HTTPException(
+            status_code=403,
+            detail="Account suspended by MoSPI Registry Official. Please contact Central Administration."
+        )
+
+    role = user.get("role", "nodal_officer")
+    designation = (
+        "MoSPI Registry Official" if role == "admin"
+        else "Nodal Desk Officer" if role == "nodal_officer"
+        else "Read-Only Auditor" if role == "auditor"
+        else user.get("designation", "Project Monitoring Officer")
+    )
+    dept = user.get("department") or user.get("ministry") or "MoSPI Infrastructure Monitoring Division"
+    initials = "".join([part[0] for part in user["full_name"].split()[:2]]).upper() or "GO"
+
     user_payload = {
-        "id": user["id"],
+        "id": str(user["id"]),
         "name": user["full_name"],
         "email": user["email"],
-        "designation": user["designation"],
-        "ministry": user["ministry"],
-        "role": user["role"],
-        "department_code": user.get("department_code", "MoSPI-CENTRAL"),
-        "clearance_level": user.get("clearance_level", "Level-3 (General Access)"),
-        "avatar": user.get("avatar", "GO"),
+        "department": dept,
+        "designation": designation,
+        "ministry": dept,
+        "role": role,
+        "is_active": bool(user.get("is_active", 1)),
+        "department_code": user.get("department_code", "MoSPI-IPMD"),
+        "clearance_level": "Level-5 (Cabinet Secretariat)" if role == "admin" else ("Level-3 (Nodal Oversight)" if role == "nodal_officer" else "Level-2 (Auditor)"),
+        "avatar": initials,
     }
     token = create_access_token(user_payload)
     return {**user_payload, "token": token}
@@ -86,32 +105,40 @@ async def register_officer(req: RegisterRequest):
 
     initials = "".join([part[0] for part in req.full_name.split()[:2]]).upper() or "GO"
     hashed_pwd = hash_password(req.password)
+    target_role = "nodal_officer"
+    if req.role in ("admin", "nodal_officer", "auditor"):
+        target_role = req.role
 
+    dept = req.ministry or "Ministry of Statistics and Programme Implementation"
     new_user = create_user(
         conn,
         {
             "full_name": req.full_name.strip(),
             "email": clean_email,
-            "designation": req.designation or "Project Monitoring Officer",
-            "ministry": req.ministry or "Ministry of Statistics and Programme Implementation",
-            "role": req.role or "Review Authority",
-            "department_code": req.employee_id or "MoSPI-IPMD",
-            "clearance_level": "Level-3 (Nodal Oversight)",
-            "avatar": initials,
+            "department": dept,
+            "role": target_role,
         },
         hashed_pwd,
     )
 
+    designation = (
+        "MoSPI Registry Official" if target_role == "admin"
+        else "Nodal Desk Officer" if target_role == "nodal_officer"
+        else "Read-Only Auditor"
+    )
+
     user_payload = {
-        "id": new_user["id"],
+        "id": str(new_user["id"]),
         "name": new_user["full_name"],
         "email": new_user["email"],
-        "designation": new_user["designation"],
-        "ministry": new_user["ministry"],
+        "department": new_user["department"],
+        "designation": designation,
+        "ministry": new_user["department"],
         "role": new_user["role"],
-        "department_code": new_user.get("department_code", "MoSPI-IPMD"),
-        "clearance_level": new_user.get("clearance_level", "Level-3 (Nodal Oversight)"),
-        "avatar": new_user.get("avatar", initials),
+        "is_active": bool(new_user.get("is_active", 1)),
+        "department_code": req.employee_id or "MoSPI-IPMD",
+        "clearance_level": "Level-3 (Nodal Oversight)",
+        "avatar": initials,
     }
     token = create_access_token(user_payload)
     return {**user_payload, "token": token}

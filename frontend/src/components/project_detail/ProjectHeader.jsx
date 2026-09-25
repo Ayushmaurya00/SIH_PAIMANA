@@ -2,8 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Trash2, Calendar, MapPin, Clock, Sparkles } from 'lucide-react';
 import RiskBadge from '../RiskBadge';
+import { useAuth } from '../../context/AuthContext';
 
 export const ProjectHeader = ({ project, costDelta, costDeltaPct, handleDelete, onOpenAssistantWithContext }) => {
+  const { user } = useAuth();
+  const isAuditor = user && user.role === 'auditor';
   return (
     <div className="space-y-4">
       {/* Top Breadcrumb & Actions Bar */}
@@ -35,9 +38,15 @@ export const ProjectHeader = ({ project, costDelta, costDeltaPct, handleDelete, 
             </button>
           )}
           <button
-            onClick={handleDelete}
+            onClick={() => !isAuditor && handleDelete()}
+            disabled={isAuditor}
+            title={isAuditor ? "Requires Nodal Desk Officer Clearance" : "Delete Project from monitoring directory"}
             aria-label="Delete Project from monitoring directory"
-            className="text-xs flex items-center gap-1.5 py-1.5 px-3 border border-red-200 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+            className={`text-xs flex items-center gap-1.5 py-1.5 px-3 rounded-lg transition-colors border ${
+              isAuditor
+                ? 'bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed'
+                : 'border-red-200 text-red-600 hover:bg-red-50 cursor-pointer'
+            }`}
           >
             <Trash2 aria-hidden="true" className="w-3.5 h-3.5" />
             <span>Delete Project</span>

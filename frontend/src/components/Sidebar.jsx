@@ -5,9 +5,11 @@ import {
   Compass,
   AlertTriangle,
   FileCheck2,
+  Shield,
   ChevronLeft,
   ChevronRight
 } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
 
 const NAV_ITEMS = [
   {
@@ -37,6 +39,23 @@ const NAV_ITEMS = [
 ];
 
 export const Sidebar = () => {
+  const { user } = useAuth();
+  const isAdmin = user && user.role === 'admin';
+
+  const navItems = [
+    ...NAV_ITEMS,
+    ...(isAdmin
+      ? [
+          {
+            to: '/admin',
+            label: 'Registry Console',
+            icon: Shield,
+            badge: 'Admin',
+          },
+        ]
+      : []),
+  ];
+
   const [isCollapsed, setIsCollapsed] = useState(() => {
     try {
       return localStorage.getItem('paimana_sidebar_collapsed') === 'true';
@@ -93,7 +112,7 @@ export const Sidebar = () => {
 
         {/* Navigation Items */}
         <nav className="space-y-1">
-          {NAV_ITEMS.map((item) => {
+          {navItems.map((item) => {
             const Icon = item.icon;
             return (
               <NavLink

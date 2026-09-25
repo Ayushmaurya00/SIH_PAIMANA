@@ -8,7 +8,7 @@ from typing import Optional
 from fastapi import APIRouter, Query, Path, Depends
 from src.api.db import get_db, parse_json_payload
 from src.api.schemas import APIError, ProjectDetail, MonthlySnapshotItem, MilestoneItem
-from src.api.auth import get_current_user, require_min_clearance
+from src.api.auth import get_current_user, require_min_clearance, require_role
 
 logger = logging.getLogger("PAIMANA_API.Projects")
 router = APIRouter(tags=["Projects"])
@@ -147,7 +147,7 @@ def get_project_detail(project_id: str = Path(..., description="Project ID e.g. 
 
 
 @router.delete("/api/projects/{project_id}")
-def delete_project(project_id: str = Path(..., description="Project ID to remove"), user=Depends(get_current_user)):
+def delete_project(project_id: str = Path(..., description="Project ID to remove"), user=Depends(require_role(["admin", "nodal_officer"]))):
     conn = None
     try:
         conn = get_db()

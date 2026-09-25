@@ -130,6 +130,22 @@ export const getCurrentUser = async () => {
   return res.data;
 };
 
+export const getAdminUsers = async () => {
+  const res = await api.get('/admin/users');
+  return res.data;
+};
+
+export const createAdminUser = async (officerData) => {
+  const res = await api.post('/admin/users', officerData);
+  return res.data;
+};
+
+export const toggleUserStatus = async (userId, isActive = null) => {
+  const payload = isActive !== null ? { is_active: isActive } : {};
+  const res = await api.patch(`/admin/users/${userId}/status`, payload);
+  return res.data;
+};
+
 export default api;
 
 

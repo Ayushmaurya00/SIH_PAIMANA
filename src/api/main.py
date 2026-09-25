@@ -32,6 +32,7 @@ from src.api.routers.filters import router as filters_router
 from src.api.routers.export_report import router as export_router
 from src.api.routers.import_reports import router as import_router
 from src.api.routers.auth import router as auth_router
+from src.api.routers.admin import router as admin_router
 
 LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO").upper()
 logging.basicConfig(level=getattr(logging, LOG_LEVEL, logging.INFO), format='[%(asctime)s] %(levelname)s - %(name)s - %(message)s')
@@ -100,7 +101,7 @@ async def global_exception_handler(request: Request, exc: Exception):
 
 
 # Mount Routers
-for r in [health_router, dashboard_router, projects_router, alerts_router, models_router, assistant_router, filters_router, export_router, import_router, auth_router]:
+for r in [health_router, dashboard_router, projects_router, alerts_router, models_router, assistant_router, filters_router, export_router, import_router, auth_router, admin_router]:
     app.include_router(r)
 
 @app.on_event("startup")

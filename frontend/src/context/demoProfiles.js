@@ -62,7 +62,19 @@ export const OFFICIAL_PROFILES = [
   }
 ];
 
-export const DEMO_PROFILES = [V3_DEMO_PROFILE, ...OFFICIAL_PROFILES];
+export const MOSPI_ADMIN_PROFILE = {
+  id: 'usr-admin-01',
+  name: 'MoSPI Registry Official',
+  email: 'admin@mospi.gov.in',
+  designation: 'MoSPI Registry Official',
+  ministry: 'MoSPI Infrastructure Monitoring Division',
+  role: 'admin',
+  departmentCode: 'MoSPI-IPMD-HQ',
+  clearanceLevel: 'Level-5 (Cabinet Secretariat)',
+  avatar: 'RO',
+};
+
+export const DEMO_PROFILES = [MOSPI_ADMIN_PROFILE, V3_DEMO_PROFILE, ...OFFICIAL_PROFILES];
 
 export const CANONICAL_MINISTRIES = [
   'Ministry of Road Transport and Highways',

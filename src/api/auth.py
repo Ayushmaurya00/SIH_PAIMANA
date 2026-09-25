@@ -26,7 +26,13 @@ ENVIRONMENT = os.getenv("ENVIRONMENT", "development")
 
 security = HTTPBearer(auto_error=False)
 
-# In-memory demo user store with pbkdf2 hashed passwords (password: Paimana@123)
+try:
+    import bcrypt
+    _HAS_BCRYPT = True
+except ImportError:
+    bcrypt = None  # type: ignore
+    _HAS_BCRYPT = False
+
 def _hash_pwd(pwd: str, salt: str = "paimana-salt-v1") -> str:
     dk = hashlib.pbkdf2_hmac("sha256", pwd.encode(), salt.encode(), 100000)
     return base64.b64encode(dk).decode()
@@ -35,10 +41,16 @@ DEMO_PASSWORD_HASH = _hash_pwd("Paimana@123")
 DEMO_PWD_SALT = "paimana-salt-v1"
 
 def hash_password(plain: str) -> str:
+    if _HAS_BCRYPT and bcrypt is not None:
+        return bcrypt.hashpw(plain.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
     return _hash_pwd(plain, DEMO_PWD_SALT)
 
 def verify_password(plain: str, hashed: str) -> bool:
     try:
+        if _HAS_BCRYPT and bcrypt is not None and (
+            hashed.startswith("$2a$") or hashed.startswith("$2b$") or hashed.startswith("$2y$")
+        ):
+            return bcrypt.checkpw(plain.encode("utf-8"), hashed.encode("utf-8"))
         return hmac.compare_digest(_hash_pwd(plain, DEMO_PWD_SALT), hashed)
     except Exception:
         return False
@@ -111,6 +123,29 @@ def require_min_clearance(min_level: int):
             raise HTTPException(status_code=403, detail=f"Insufficient clearance. Requires Level-{min_level}+, your level is Level-{lvl}.")
         return user
     return _checker
+
+def require_role(allowed_roles: list[str]):
+    """
+    Validates JWT role claims.
+    Returns a 403 Forbidden statutory clearance error if unauthorized.
+    """
+    async def _role_checker(user: Dict[str, Any] = Depends(get_current_user)):
+        user_role = user.get("role", "")
+        mapped_role = user_role
+        if user_role in ("Cabinet Review Authority", "MoSPI Registry Official"):
+            mapped_role = "admin"
+        elif user_role in ("Review Authority", "Implementing Authority", "Nodal Desk Officer"):
+            mapped_role = "nodal_officer"
+        elif user_role in ("Auditor", "Read-Only Auditor"):
+            mapped_role = "auditor"
+
+        if mapped_role not in allowed_roles and user_role not in allowed_roles:
+            raise HTTPException(
+                status_code=403,
+                detail=f"Statutory clearance error: Insufficient administrative privileges. Required statutory role in {allowed_roles}, but current officer role is '{user_role}'."
+            )
+        return user
+    return _role_checker
 
 # Singleton for optional auth (read endpoints that allow anonymous)
 async def get_optional_user(

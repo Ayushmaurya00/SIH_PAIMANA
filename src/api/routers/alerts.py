@@ -5,9 +5,10 @@ Supports chunked pagination (limit/offset) and status updates.
 
 import logging
 from typing import Optional, List
-from fastapi import APIRouter, Query
+from fastapi import APIRouter, Query, Depends
 from src.api.db import get_db
 from src.api.schemas import APIError, AlertItem
+from src.api.auth import require_role
 
 logger = logging.getLogger("PAIMANA_API.Alerts")
 router = APIRouter(tags=["Alerts"])
@@ -98,7 +99,10 @@ def get_alerts_count(
 
 
 @router.post("/api/alerts/{alert_id}/review")
-def review_alert(alert_id: int):
+def review_alert(
+    alert_id: int,
+    current_user: dict = Depends(require_role(["admin", "nodal_officer"]))
+):
     conn = None
     try:
         conn = get_db()

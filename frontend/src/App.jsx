@@ -15,6 +15,7 @@ const ProjectDetailPage = lazy(() => import('./pages/ProjectDetailPage'));
 const AlertsPage = lazy(() => import('./pages/AlertsPage'));
 const ModelComparisonPage = lazy(() => import('./pages/ModelComparisonPage'));
 const LoginPage = lazy(() => import('./pages/LoginPage'));
+const AdminPage = lazy(() => import('./pages/AdminPage'));
 
 // Layout Wrapper Component to conditionally render Header and Sidebar
 const MainLayout = ({ onOpenAssistant, onOpenImport, alertCount, assistantContextPid, isAssistantOpen, setIsAssistantOpen, isImportOpen, setIsImportOpen }) => {
@@ -77,6 +78,7 @@ const MainLayout = ({ onOpenAssistant, onOpenImport, alertCount, assistantContex
                 <Route path="/alerts" element={<AlertsPage />} />
                 <Route path="/models" element={<ModelComparisonPage />} />
                 <Route path="/methodology-audit" element={<ModelComparisonPage />} />
+                <Route path="/admin" element={<AdminPage />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
               </Routes>
             </Suspense>
