@@ -9,12 +9,14 @@ import { ExplorerFilters } from '../components/explorer/ExplorerFilters';
 import { ExplorerTable } from '../components/explorer/ExplorerTable';
 import { ExplorerPagination } from '../components/explorer/ExplorerPagination';
 import PurgeConfirmModal from '../components/explorer/PurgeConfirmModal';
+import StatusModal from '../components/StatusModal';
 
 export const ExplorerPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [isImportOpen, setIsImportOpen] = useState(false);
   const [isPurgeOpen, setIsPurgeOpen] = useState(false);
   const [isPurging, setIsPurging] = useState(false);
+  const [statusModal, setStatusModal] = useState({ isOpen: false, type: 'success', title: '', message: '' });
 
   const [search, setSearch] = useState(searchParams.get('search') || '');
   const [ministry, setMinistry] = useState(searchParams.get('ministry') || 'All');
@@ -71,8 +73,19 @@ export const ExplorerPage = () => {
       await deleteProject(projectId);
       setProjects(prev => prev.filter(p => p.project_id !== projectId));
       setTotal(prev => Math.max(0, prev - 1));
+      setStatusModal({
+        isOpen: true,
+        type: 'success',
+        title: 'Project Deleted',
+        message: `Project "${projectName}" has been permanently removed.`
+      });
     } catch (err) {
-      alert(`Failed to delete project: ${err?.response?.data?.detail || err?.message}`);
+      setStatusModal({
+        isOpen: true,
+        type: 'error',
+        title: 'Delete Failed',
+        message: err?.response?.data?.detail || err?.message || 'Failed to delete project.'
+      });
     }
   };
 
@@ -83,9 +96,19 @@ export const ExplorerPage = () => {
       setProjects([]);
       setTotal(0);
       setIsPurgeOpen(false);
-      alert("All projects and telemetry purged successfully.");
+      setStatusModal({
+        isOpen: true,
+        type: 'success',
+        title: 'Database Purged',
+        message: 'All projects and telemetry purged successfully.'
+      });
     } catch (err) {
-      alert(`Failed to purge projects: ${err?.response?.data?.detail || err?.response?.data?.message || err?.message}`);
+      setStatusModal({
+        isOpen: true,
+        type: 'error',
+        title: 'Purge Failed',
+        message: err?.response?.data?.detail || err?.response?.data?.message || err?.message || 'Failed to purge projects.'
+      });
     } finally {
       setIsPurging(false);
     }
@@ -141,6 +164,13 @@ export const ExplorerPage = () => {
 
       <ImportModal isOpen={isImportOpen} onClose={() => setIsImportOpen(false)} onImportSuccess={() => window.location.reload()} />
       <PurgeConfirmModal isOpen={isPurgeOpen} onClose={() => setIsPurgeOpen(false)} onConfirm={handleConfirmPurge} loading={isPurging} />
+      <StatusModal
+        isOpen={statusModal.isOpen}
+        type={statusModal.type}
+        title={statusModal.title}
+        message={statusModal.message}
+        onClose={() => setStatusModal(prev => ({ ...prev, isOpen: false }))}
+      />
     </div>
   );
 };

@@ -44,14 +44,14 @@ export const AdminPanel = () => {
       }
     } catch (err) {
       const msg = err?.response?.data?.message || 'Failed to update user status.';
-      alert(msg);
+      showNotification(msg, 'error');
     } finally {
       setTogglingId(null);
     }
   };
 
-  const showNotification = (msg) => {
-    setNotification(msg);
+  const showNotification = (msg, type = 'success') => {
+    setNotification({ message: msg, type });
     setTimeout(() => setNotification(null), 5000);
   };
 
@@ -102,9 +102,20 @@ export const AdminPanel = () => {
       </div>
 
       {notification && (
-        <div className="p-3 rounded-lg bg-emerald-50 border border-emerald-300 text-emerald-800 text-xs font-semibold flex items-center gap-2 shadow-2xs">
-          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" aria-hidden="true" />
-          <span>{notification}</span>
+        <div
+          className={`p-3 rounded-lg text-xs font-semibold flex items-center gap-2 shadow-2xs border ${
+            notification.type === 'error'
+              ? 'bg-rose-50 border-rose-300 text-rose-800'
+              : 'bg-emerald-50 border-emerald-300 text-emerald-800'
+          }`}
+        >
+          <CheckCircle2
+            className={`w-4 h-4 shrink-0 ${
+              notification.type === 'error' ? 'text-rose-600' : 'text-emerald-600'
+            }`}
+            aria-hidden="true"
+          />
+          <span>{notification.message}</span>
         </div>
       )}
 

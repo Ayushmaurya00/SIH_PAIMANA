@@ -12,6 +12,7 @@ import { PredictiveTelemetry } from '../components/project_detail/PredictiveTele
 import { FinancialSCurve } from '../components/project_detail/FinancialSCurve';
 import { PhaseExecutionGantt } from '../components/project_detail/PhaseExecutionGantt';
 import { generateSCurveData, generatePhaseData } from '../components/project_detail/simulationHelpers';
+import StatusModal from '../components/StatusModal';
 
 export const ProjectDetailPage = ({ onOpenAssistantWithContext }) => {
   const { id } = useParams();
@@ -20,6 +21,7 @@ export const ProjectDetailPage = ({ onOpenAssistantWithContext }) => {
   const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [statusModal, setStatusModal] = useState({ isOpen: false, type: 'error', title: '', message: '' });
 
   useEffect(() => {
     let mounted = true;
@@ -46,7 +48,12 @@ export const ProjectDetailPage = ({ onOpenAssistantWithContext }) => {
       await deleteProject(project.project_id);
       navigate('/explorer');
     } catch (err) {
-      alert(`Failed to delete: ${err?.response?.data?.detail || err?.message}`);
+      setStatusModal({
+        isOpen: true,
+        type: 'error',
+        title: 'Delete Failed',
+        message: err?.response?.data?.detail || err?.message || 'Failed to delete project.'
+      });
     }
   };
 
@@ -95,6 +102,13 @@ export const ProjectDetailPage = ({ onOpenAssistantWithContext }) => {
           </div>
         </Card>
       )} */}
+      <StatusModal
+        isOpen={statusModal.isOpen}
+        type={statusModal.type}
+        title={statusModal.title}
+        message={statusModal.message}
+        onClose={() => setStatusModal(prev => ({ ...prev, isOpen: false }))}
+      />
     </div>
   );
 };
