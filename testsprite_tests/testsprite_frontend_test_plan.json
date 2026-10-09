@@ -1,0 +1,472 @@
+[
+  {
+    "id": "TC001",
+    "title": "View dashboard risk summary and open a risky project",
+    "description": "Verifies that the overview dashboard loads key decision metrics and lets the user drill into a risky project.",
+    "category": "Overview Dashboard",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Wait for the dashboard to load"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify KPI totals are displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify risk distribution and early warning summary are displayed"
+      },
+      {
+        "type": "action",
+        "description": "Click a risky project from the dashboard"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the project detail page is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC002",
+    "title": "Inspect project predictions and explainability",
+    "description": "Verifies that a project detail page shows forecast outputs and SHAP-based explanation data for decision support.",
+    "category": "Project Detail & Deep Dive",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /projects/1"
+      },
+      {
+        "type": "action",
+        "description": "Wait for the project detail page to load"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify forecast outputs are displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify explainability data is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify milestone timeline data is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC003",
+    "title": "Acknowledge an active alert",
+    "description": "This verifies that an operations user can review active alerts and acknowledge a critical alert so it is removed or updated in the list.",
+    "category": "Early Warning Alerts",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the username field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /alerts"
+      },
+      {
+        "type": "action",
+        "description": "Select the most critical active alert"
+      },
+      {
+        "type": "action",
+        "description": "Acknowledge the selected alert"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the alert is no longer shown as active or its acknowledged state is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC004",
+    "title": "Review project progress and milestone context",
+    "description": "Verifies that a project detail page presents the progress curves and milestones needed to understand delivery status.",
+    "category": "Project Detail & Deep Dive",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /projects/1"
+      },
+      {
+        "type": "action",
+        "description": "Wait for the project detail page to load"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify progress curve data is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify milestone timeline data is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC005",
+    "title": "Review dashboard sector breakdown",
+    "description": "Verifies that the overview dashboard shows the sector breakdown needed for a quick portfolio scan.",
+    "category": "Overview Dashboard",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Wait for the dashboard to load"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify sector breakdown data is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify summary cards for the dashboard are displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC006",
+    "title": "Search and filter projects in the explorer",
+    "description": "Verifies that the project explorer can be used to narrow the list of projects by common filters and still show results.",
+    "category": "Project Explorer",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /explorer"
+      },
+      {
+        "type": "action",
+        "description": "Wait for the explorer to load"
+      },
+      {
+        "type": "action",
+        "description": "Select a sector filter"
+      },
+      {
+        "type": "action",
+        "description": "Select a state filter"
+      },
+      {
+        "type": "action",
+        "description": "Select a risk tier filter"
+      },
+      {
+        "type": "action",
+        "description": "Select a cost filter"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify matching project results are displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify paging metadata is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC007",
+    "title": "Compare model metrics and ablation results",
+    "description": "This verifies that a data analyst can review benchmark metrics and CUF ablation results to compare model quality on the models page.",
+    "category": "Model Comparison & Analytics",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the username field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /models"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify benchmark metrics are displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify CUF ablation results are displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC008",
+    "title": "Open project details from the explorer",
+    "description": "Verifies that a project selected in the explorer opens the deep-dive detail page.",
+    "category": "Project Explorer",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /explorer"
+      },
+      {
+        "type": "action",
+        "description": "Wait for the explorer to load"
+      },
+      {
+        "type": "action",
+        "description": "Click a project in the results list"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the project detail page is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify project profile information is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC009",
+    "title": "Review alert ordering and categories",
+    "description": "This verifies that the alerts list surfaces active warnings in a usable order with severity and category information visible for prioritization.",
+    "category": "Early Warning Alerts",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the username field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /alerts"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify active alerts are displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify severity and category information is displayed for the alerts"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC010",
+    "title": "Sort and paginate explorer results",
+    "description": "Verifies that users can change the project ordering and move through paginated explorer results.",
+    "category": "Project Explorer",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /explorer"
+      },
+      {
+        "type": "action",
+        "description": "Wait for the explorer to load"
+      },
+      {
+        "type": "action",
+        "description": "Select a sort option for the project list"
+      },
+      {
+        "type": "action",
+        "description": "Click the next page control"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify project results are still displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify paging metadata is updated"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC011",
+    "title": "Identify the strongest forecasting model",
+    "description": "This verifies that the models page makes it possible to determine which model performs best for risk forecasting from the displayed comparison data.",
+    "category": "Model Comparison & Analytics",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the username field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /models"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the comparative model performance data is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the strongest model for forecasting risk is identifiable from the comparison"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC012",
+    "title": "Show an empty alert state",
+    "description": "This verifies that the alerts page clearly communicates when there are no active warnings and still provides an informative summary.",
+    "category": "Early Warning Alerts",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the username field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /alerts"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify an empty state message is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify an informational summary is displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC013",
+    "title": "Handle a project detail page for a nonexistent project",
+    "description": "Verifies that an invalid project route shows a not-found state instead of project content.",
+    "category": "Project Detail & Deep Dive",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /projects/999999"
+      },
+      {
+        "type": "action",
+        "description": "Wait for the project detail page to load"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a not-found message is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify project detail content is not displayed"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC014",
+    "title": "Handle unsupported model ablation filters",
+    "description": "This verifies that unsupported ablation parameters are rejected in the UI flow and that the page shows a validation error instead of invalid comparison results.",
+    "category": "Model Comparison & Analytics",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the username field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /models"
+      },
+      {
+        "type": "action",
+        "description": "Apply an unsupported filter or parameter in the ablation controls"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a validation error is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify invalid comparison results are not displayed"
+      }
+    ],
+    "priority": "Low"
+  }
+]
